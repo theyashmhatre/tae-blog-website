@@ -1,0 +1,21 @@
+.box{
+    padding: 15px 20px;
+
+}
+
+.box:hover{
+    border: 1px solid blue;
+    border-radius: 5px;
+}
+
+.icon{
+    display: flex;
+    justify-content: center;        
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.text{
+    display: block;
+    margin: auto;
+}
