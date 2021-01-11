@@ -6,7 +6,8 @@ export default(req,res) =>{
     console.log(req.query); // The url query string
     console.log(req.method);
     
-    const {blocks, blogTitle, coverImageUploaded, uploadedAt} = req.body;
+    const {body,method} = req;
+    const {blocks, blogTitle, coverImageUploaded, uploadedAt} = body;
 
     let errors = [];
 
@@ -24,22 +25,28 @@ export default(req,res) =>{
         postedBy : "Yash Mhatre"
     };
 
-    return new Promise((resolve,reject)=>{
-        db.collection("blogs")
-            .add(newBlog)
-            .then((doc) => {
-                res.statusCode = 200;
-                res.end({ doc: "all good" });
-            })
-            .catch((err) => {
-                errors.push("Something went wrong" + err);
-                res.json(errors);
-                res.status(405).end();
-                return resolve();
-            });
-    })
+    switch (method) {
+        case "POST":
+            db.collection("blogs")
+                .add(newBlog)
+                .then((doc) => {
+                    res.statusCode = 200;
+                    res.end({ doc: "all good" });
+                })
+                .catch((err) => {
+                    errors.push("Something went wrong" + err);
+                    res.json(errors);
+                    res.status(405).end();
+                    return resolve();
+                });
+            break;
     
-}
+        default:
+            res.setHeader("Allow", ["POST"]);
+            res.status(405).end(`Method ${method} Not Allowed`);
+            break;
+    }
+};  
 
 export const config = {
     api: {

@@ -38,8 +38,9 @@ export default function RightDrawer() {
         }).then(()=>{
             setBlocks(data.content.body);
             localStorage.setItem('componentList', JSON.stringify(data.content.body));
-            onClose()
+            onClose();
         }).catch((err)=>{
+            console.log(err.response);
             console.log("err",err.response.data);
             const errors = err.response.data.errors;
             console.log(errors);
