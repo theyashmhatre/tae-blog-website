@@ -2,9 +2,9 @@ import firebase from "firebase";
 
 export default(req,res) =>{
     const db = firebase.firestore();
-    console.log(req.body) // The request body
-    console.log(req.query) // The url query string
-    console.log(req.method)
+    console.log(req.body); // The request body
+    console.log(req.query); // The url query string
+    console.log(req.method);
     
     const {blocks, blogTitle, coverImageUploaded, uploadedAt} = req.body;
 
@@ -40,3 +40,12 @@ export default(req,res) =>{
     })
     
 }
+
+export const config = {
+    api: {
+        // disable nextjs's body parser while deployed
+        // (as body parsing is handled by `https.onRequest()`),
+        // but enable it for local development using `next dev`
+        bodyParser: process.env.NODE_ENV !== 'production',
+    }
+};
