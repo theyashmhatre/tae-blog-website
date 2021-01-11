@@ -24,6 +24,11 @@ export default function RightDrawer() {
         };
         console.log(completeBlockObject);
 
+        await Axios.get("/api/hello")
+        .then((res)=>{
+            console.log(res.data);
+        })
+
         await Axios.post("/api/admin/submit-post",completeBlockObject)
         .then((res)=>{
             console.log("res",res);
