@@ -6,6 +6,7 @@ import { useToast } from "@chakra-ui/react"
 import { AiOutlineCloudUpload} from "react-icons/ai"
 import BlockContext from "../../../../context/BlockContext"
 import { RiCloseCircleFill } from 'react-icons/ri';
+import Axios from "axios";
 
 
 //This component will be dynamically added to the CreatePost Stack when Image is clicked in the Modal
