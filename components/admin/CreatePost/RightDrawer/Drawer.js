@@ -14,7 +14,7 @@ export default function RightDrawer() {
     const toast = useToast();  //chakra UI method
 
 
-    function uploadBlogPost() {
+    async function uploadBlogPost() {
         const date = new Date();
         const completeBlockObject = {
             blocks : blocks,
@@ -24,14 +24,14 @@ export default function RightDrawer() {
         };
         console.log(completeBlockObject);
 
-        Axios.post("/api/admin/submit-post",completeBlockObject)
+        await Axios.post("/api/admin/submit-post",completeBlockObject)
         .then((res)=>{
             console.log("res",res);
             toast({
                 title: "Blog uploaded successfully! 🎉",
                 description: "Get some rest now.",
                 status: "success",
-                duration: 8000,
+                duration: 7000,
                 isClosable: true,
                 position: 'bottom-right'
             });
@@ -44,15 +44,17 @@ export default function RightDrawer() {
             const errors = err.response.data.errors;
             console.log(errors);
 
-            errors.map((error)=>{
-                toast({
-                    title: error,
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                    position: 'bottom-right'
+            if (errors) {
+                errors.map((error) => {
+                    toast({
+                        title: error,
+                        status: "error",
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'bottom-right'
+                    });
                 });
-            });
+            }
         });
     }
 

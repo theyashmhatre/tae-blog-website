@@ -22,16 +22,21 @@ export default(req,res) =>{
         likes: 0,
         views: 0,
         postedBy : "Yash Mhatre"
-    }
+    };
 
-    db.collection("blogs")
-        .add(newBlog)
-        .then((doc)=>{
-            res.status(200).json({ doc: "all good" });
-        })
-        .catch((err)=>{
-            errors.push("Something went wrong" + err);
-            res.status(500).json({errors: errors});
-        });
+    return new Promise((resolve,reject)=>{
+        db.collection("blogs")
+            .add(newBlog)
+            .then((doc) => {
+                res.statusCode = 200;
+                res.end({ doc: "all good" });
+            })
+            .catch((err) => {
+                errors.push("Something went wrong" + err);
+                res.json(errors);
+                res.status(405).end();
+                return resolve();
+            });
+    })
     
 }
