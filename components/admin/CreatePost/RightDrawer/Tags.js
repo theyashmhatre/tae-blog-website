@@ -15,13 +15,11 @@ export default function Tags() {
             ...tagValue,
             [event.target.name]: value
         });
-        console.log(tagValue);
     }
 
     function onBlur(e) {
         const tags = Object.values(tagValue)[0];
         const tagList = tags.split(";");
-        console.log(tags,tagList);
         blocks[0].tags = tagList;
         localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
     }

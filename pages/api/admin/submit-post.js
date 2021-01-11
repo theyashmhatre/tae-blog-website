@@ -1,22 +1,13 @@
 import firebase from "firebase";
 
-export const config = {
-    api: {
-        // disable nextjs's body parser while deployed
-        // (as body parsing is handled by `https.onRequest()`),
-        // but enable it for local development using `next dev`
-        bodyParser: false,
-    }
-};
 
-export default(req,res) =>{
+export default (req,res) =>{
     const db = firebase.firestore();
     console.log(req.body); // The request body
     console.log(req.query); // The url query string
     console.log(req.method);
-    
-    const {body,method} = req;
-    const {blocks, blogTitle, coverImageUploaded, uploadedAt} = body;
+
+    const {blocks, blogTitle, coverImageUploaded, uploadedAt} = req.body;
 
     let errors = [];
 
@@ -34,25 +25,26 @@ export default(req,res) =>{
         postedBy : "Yash Mhatre"
     };
 
-    switch (method) {
+    switch (req.method) {
         case "POST":
             db.collection("blogs")
                 .add(newBlog)
                 .then((doc) => {
-                    res.statusCode = 200;
-                    res.end({ doc: "all good" });
+                    return res.status(201).json({
+                        success:true,
+                        id : doc.id,
+                    });
                 })
                 .catch((err) => {
                     errors.push("Something went wrong" + err);
-                    res.json(errors);
+                    res.json({ errors: errors });
                     res.status(405).end();
-                    return resolve();
                 });
-            break;
+                break;
     
         default:
             res.setHeader("Allow", ["POST"]);
-            res.status(405).end(`Method ${method} Not Allowed`);
+            res.status(405).end(`Method ${req.method} Not Allowed`);
             break;
     }
 };  

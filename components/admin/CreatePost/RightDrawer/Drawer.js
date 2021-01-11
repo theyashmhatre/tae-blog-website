@@ -14,7 +14,7 @@ export default function RightDrawer() {
     const toast = useToast();  //chakra UI method
 
 
-    async function uploadBlogPost() {
+    function uploadBlogPost() {
         const date = new Date();
         const completeBlockObject = {
             blocks : blocks,
@@ -25,7 +25,7 @@ export default function RightDrawer() {
         console.log(completeBlockObject);
 
         
-        await Axios.post("/api/admin/submit-post",completeBlockObject)
+        Axios.post("/api/admin/submit-post",completeBlockObject)
         .then((res)=>{
             console.log("res",res);
             toast({
