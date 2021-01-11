@@ -24,6 +24,7 @@ export default function RightDrawer() {
         };
         console.log(completeBlockObject);
 
+        
         Axios.post("/api/admin/submit-post",completeBlockObject)
         .then((res)=>{
             console.log("res",res);
@@ -31,28 +32,31 @@ export default function RightDrawer() {
                 title: "Blog uploaded successfully! 🎉",
                 description: "Get some rest now.",
                 status: "success",
-                duration: 8000,
+                duration: 7000,
                 isClosable: true,
                 position: 'bottom-right'
             });
         }).then(()=>{
             setBlocks(data.content.body);
             localStorage.setItem('componentList', JSON.stringify(data.content.body));
-            onClose()
+            onClose();
         }).catch((err)=>{
+            console.log(err.response);
             console.log("err",err.response.data);
             const errors = err.response.data.errors;
             console.log(errors);
 
-            errors.map((error)=>{
-                toast({
-                    title: error,
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                    position: 'bottom-right'
+            if (errors) {
+                errors.map((error) => {
+                    toast({
+                        title: error,
+                        status: "error",
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'bottom-right'
+                    });
                 });
-            });
+            }
         });
     }
 
