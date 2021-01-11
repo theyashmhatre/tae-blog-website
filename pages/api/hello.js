@@ -5,5 +5,5 @@ export default (req, res) => {
   console.log(req.query) // The url query string
   console.log(req.method)
   res.statusCode = 200;
-  res.json({ name: 'John Doe' });
+  res.json({ list: "blogData" });
 }
