@@ -1,5 +1,14 @@
 import firebase from "firebase";
 
+export const config = {
+    api: {
+        // disable nextjs's body parser while deployed
+        // (as body parsing is handled by `https.onRequest()`),
+        // but enable it for local development using `next dev`
+        bodyParser: false,
+    }
+};
+
 export default(req,res) =>{
     const db = firebase.firestore();
     console.log(req.body); // The request body
@@ -48,11 +57,3 @@ export default(req,res) =>{
     }
 };  
 
-export const config = {
-    api: {
-        // disable nextjs's body parser while deployed
-        // (as body parsing is handled by `https.onRequest()`),
-        // but enable it for local development using `next dev`
-        bodyParser: false,
-    }
-};
