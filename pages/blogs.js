@@ -8,7 +8,7 @@ import Header from '../components/user/Layout/Header'
 import { db } from "../config/config";
 
 export default function Blogs({ blogs }) {
-    console.log("blogs",blogs);
+    
     return (
         <div>
             <Head>
@@ -55,10 +55,8 @@ export async function getStaticProps(context) {
         .catch((err) => {
             console.error("Err", err);
         });
-        console.log(blogsList);
 
     let blogs = JSON.parse(JSON.stringify(blogsList));
-    console.log("buildblogs",blogs,blogsList);
     return {
         props: {
             blogs,
