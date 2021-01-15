@@ -26,7 +26,8 @@ export default function SinglePost({blog}) {
 
 export async function getStaticPaths() {
     // Call an external API endpoint to get blogs
-    const blogsList = await axios.get("http://localhost:3000/api/client/blog/getAllBlogs");
+    const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://the-adventurous-engineer.vercel.app";
+    const blogsList = await axios.get(host+"/api/client/blog/getAllBlogs");
 
     let blogs = JSON.parse(JSON.stringify(blogsList.data));
 
@@ -46,7 +47,7 @@ export async function getStaticProps({params}) {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
 
-    const host = "https://the-adventurous-engineer.vercel.app";
+    const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://the-adventurous-engineer.vercel.app";
     const singleBlog = await axios.get(host+"/api/client/blog/getBlog", {
         params : {
             id : params.id
