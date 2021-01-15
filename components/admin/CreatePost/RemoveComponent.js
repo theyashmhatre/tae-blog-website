@@ -10,7 +10,9 @@ export default function RemoveComponent(props) {
 
     function removeBlock() {
         console.log(props);
+        //filters out the selected block from the list
         const newList = blocks.filter((block) => block._uid !== props.uid);
+        //when the block is set using setBlocks, it'll automatically update the localstorage as well since we've specified useEffect to update after every change in blocks
         setBlocks(newList);
     }
 

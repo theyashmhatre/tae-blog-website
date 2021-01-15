@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoMdClose } from "react-icons/io"
 import { GiHamburgerMenu } from "react-icons/gi"
-import { Box, Heading, Flex, Text } from "@chakra-ui/react"
+import { Box, Heading, Flex, Text, Button, useColorMode } from "@chakra-ui/react"
 import Link from "next/link"
 
 const MenuItems = props => {
@@ -21,6 +21,7 @@ const MenuItems = props => {
 export default function Header(props) {
     const [show, setShow] = useState(false);
     const toggleMenu = () => setShow(!show);
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <Flex
@@ -58,7 +59,7 @@ export default function Header(props) {
                     <MenuItems ><Link href="/"><a className="link-redirect">Home</a></Link></MenuItems>
                     <MenuItems ><Link href="/blogs"><a className="link-redirect">Blogs</a></Link></MenuItems>
                     <MenuItems ><Link href="/admin/create-post"><a className="link-redirect">Contact Us</a></Link></MenuItems>
-                    <MenuItems ><Link href="/"><a className="link-redirect">Home</a></Link></MenuItems>
+                    <Button _hover={{border:"1px solid white"}} border="1px solid gray" color="white" colorScheme="gray.700" onClick={toggleColorMode}>{colorMode === "light" ? "Dark" : "Light"} Mode</Button>
                 </Flex>
             </Box>
         </Flex>

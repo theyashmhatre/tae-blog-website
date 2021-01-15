@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.bgImage {
+  filter: blur(3px);
+  box-sizing: border-box;  
+  height: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Position text in the middle of the page/image */
+.bgText {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); 
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 20px;
+  text-align: center;
+}
+
+.bgText:hover{
+    cursor: pointer;
+    color: yellow;
+}
+
+.bottomRight {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}

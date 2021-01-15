@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import RightDrawer from '../../CreatePost/RightDrawer/Drawer'
-import {Flex,Button,Spacer,Heading, Box, useColorModeValue} from "@chakra-ui/react";
-import BlockContext from '../../../../context/BlockContext';
+import {Flex,Button,Spacer, Box, useColorModeValue} from "@chakra-ui/react";
 import ModalShow from '../AddBlock/ModalShow';
 import LeftDrawer from '../LeftDrawer/LeftDrawer';
+
+
 export default function StickyFooter() {
 
-    const {blocks,setBlocks} = useContext(BlockContext);
     const value = useColorModeValue("white", "#1A202C");
 
     const footerStyle = {

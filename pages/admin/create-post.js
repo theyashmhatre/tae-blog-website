@@ -10,6 +10,7 @@ import { DependencyList } from "react";
 import data from "../../components/admin/CreatePost/AddBlock/objects/data"
 import styles from "../../styles/CreatePost.module.css"
 import StickyFooter from '../../components/admin/CreatePost/Footer/StickyFooter'
+import {Fonts} from "../../public/fonts/fonts"
 
 export default function CreatePost() {
 
@@ -45,12 +46,12 @@ export default function CreatePost() {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
             </Head>
 
-            <Heading fontFamily="-apple-system" fontSize={["25px", "30px", "40px"]} textAlign="center" border="1px solid black" color="white" bgColor="gray.700" padding="10px 0px">
+            <Heading fontFamily="Raleway" fontSize={["25px", "30px", "40px"]} textAlign="center" border="1px solid black" color="white" bgColor="gray.900" padding="10px 0px">
                 Create Post
             </Heading>
 
             <div>
-                <Stack spacing={8} w={["90%", "80%", "70%", "800px"]} style={{ margin: "auto" }} >
+                <Stack spacing={8} w={["90%", "80%", "70%", "800px"]} style={{ margin: "auto" }}>
 
                     {/* this map function maps all the objects in the blocks and send them one by one to AddBlock.js which creates the Components */}
                     {blocks.map(block => Components(block))}  

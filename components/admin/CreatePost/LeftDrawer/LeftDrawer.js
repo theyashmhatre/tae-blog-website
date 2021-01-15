@@ -4,12 +4,15 @@ import { AiFillSetting } from 'react-icons/ai';
 import BlockContext from '../../../../context/BlockContext';
 import data from "../AddBlock/objects/data"
 
+
+//Left Drawer which contains Clear All and Toggle Mode buttons
 export default function LeftDrawer() {
     const{blocks,setBlocks} = useContext(BlockContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { colorMode, toggleColorMode } = useColorMode(); //chakra ui's color mode
 
+    //once, the admin clicks on Clear All button, it'll set the blocks to it's previous value and also the localstorage as well
     function clearBlockList() {
         setBlocks(data.content.body);
         localStorage.setItem('componentList', JSON.stringify(data.content.body));
