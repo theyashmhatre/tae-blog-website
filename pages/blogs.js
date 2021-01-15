@@ -35,7 +35,7 @@ export default function Blogs({ blogs }) {
 }
 
 export async function getStaticProps(context) {
-    const host = process.env.NODE_ENV === "production" ? "https://the-adventurous-engineer.vercel.app" : "http://localhost:3000"; 
+    const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://the-adventurous-engineer.vercel.app"; 
     const blogsList = await axios.get(host+"/api/client/blog/getAllBlogs");
 
     let blogs = JSON.parse(JSON.stringify(blogsList.data));

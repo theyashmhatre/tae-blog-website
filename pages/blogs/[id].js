@@ -46,7 +46,7 @@ export async function getStaticProps({params}) {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
 
-    const host = process.env.NODE_ENV === "production" ? "https://the-adventurous-engineer.vercel.app" : "http://localhost:3000"; 
+    const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://the-adventurous-engineer.vercel.app";
     const singleBlog = await axios.get(host+"/api/client/blog/getBlog", {
         params : {
             id : params.id
