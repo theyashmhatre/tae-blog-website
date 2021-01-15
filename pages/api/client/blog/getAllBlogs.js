@@ -16,7 +16,7 @@ export default async (req, res) => {
                     views: doc.data().views
                 });
             });
-            return res.json(blogsList)
+            return res.json(blogsList);
         })
         .catch((err) => {
             console.error("Err", err);

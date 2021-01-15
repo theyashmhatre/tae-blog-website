@@ -4,6 +4,7 @@ import Hero from "../components/user/Hero"
 import { Divider, Stack } from "@chakra-ui/react"
 import axios from 'axios';
 import BlogCard from '../components/user/BlogCard';
+import {db} from "../config/config"
 
 
 export default function Home({blogs}) {
@@ -44,10 +45,26 @@ export default function Home({blogs}) {
 
 
 export async function getStaticProps(context) {
-  const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://the-adventurous-engineer.vercel.app";
-  const blogsList = await axios.get(host +"/api/client/blog/getAllBlogs");
-
-  let Allblogs = JSON.parse(JSON.stringify(blogsList.data));
+  let blogsList = [];
+  await db.collection("blogs")
+    .orderBy("uploadedAt", "desc")
+    .get()
+    .then((data) => {
+      data.forEach((doc) => {
+        blogsList.push({
+          blogId: doc.id,
+          blocks: doc.data().blocks,
+          likes: doc.data().likes,
+          postedBy: doc.data().postedBy,
+          uploadedAt: doc.data().uploadedAt,
+          views: doc.data().views
+        });
+      });
+    })
+    .catch((err) => {
+      console.error("Err", err);
+    });
+  let Allblogs = JSON.parse(JSON.stringify(blogsList));
   let blogs = Allblogs.slice(0,5);
 
   return {
