@@ -1,4 +1,4 @@
-import { Box, Container } from '@chakra-ui/react'
+import { Box, Container, Text } from '@chakra-ui/react'
 import React from 'react'
 
 export default function VideoBlock(props) {
