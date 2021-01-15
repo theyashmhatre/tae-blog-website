@@ -6,49 +6,49 @@ import { Stack } from '@chakra-ui/react';
 import Components from '../../components/user/CreateComponents/CreateComponents';
 import SeoMeta from '../../components/user/MetaTags/seo-meta';
 import {db} from "../../config/config"
-import useSWR from 'swr'; 
+// import useSWR from 'swr'; 
 
-const fetcher = async (url) => {
-    let blogsList = [];
-    await db.collection("blogs")
-        .orderBy("uploadedAt", "desc")
-        .get()
-        .then((data) => {
-            data.forEach((doc) => {
-                blogsList.push({
-                    blogId: doc.id,
-                    blocks: doc.data().blocks,
-                    likes: doc.data().likes,
-                    postedBy: doc.data().postedBy,
-                    uploadedAt: doc.data().uploadedAt,
-                    views: doc.data().views
-                });
-            });
-        })
-        .catch((err) => {
-            console.error("Err", err);
-        });
+// const fetcher = async (url) => {
+//     let blogsList = [];
+//     await db.collection("blogs")
+//         .orderBy("uploadedAt", "desc")
+//         .get()
+//         .then((data) => {
+//             data.forEach((doc) => {
+//                 blogsList.push({
+//                     blogId: doc.id,
+//                     blocks: doc.data().blocks,
+//                     likes: doc.data().likes,
+//                     postedBy: doc.data().postedBy,
+//                     uploadedAt: doc.data().uploadedAt,
+//                     views: doc.data().views
+//                 });
+//             });
+//         })
+//         .catch((err) => {
+//             console.error("Err", err);
+//         });
 
-    return blogsList;
-};
+//     return blogsList;
+// };
 
-const fetchSingleBlog = async (id) => {
-    let blogData = [];
-    await db.doc(`/blogs/${id}`)
-        .get()
-        .then((doc) => {
-            if (!doc.exists) {
-                return res.status(404).json({ error: 'Blog not found' });
-            }
+// const fetchSingleBlog = async (id) => {
+//     let blogData = [];
+//     await db.doc(`/blogs/${id}`)
+//         .get()
+//         .then((doc) => {
+//             if (!doc.exists) {
+//                 return res.status(404).json({ error: 'Blog not found' });
+//             }
 
-            blogData = doc.data();
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+//             blogData = doc.data();
+//         })
+//         .catch((err) => {
+//             console.error(err);
+//         });
 
-    return blogData;
-};
+//     return blogData;
+// };
 
 export default function SinglePost({blog}) {
     let blocks = blog.blocks;
@@ -69,7 +69,25 @@ export default function SinglePost({blog}) {
 }
 
 export async function getStaticPaths() {
-    let blogsList = await fetcher("getAllBlogs");
+    let blogsList = [];
+    await db.collection("blogs")
+        .orderBy("uploadedAt", "desc")
+        .get()
+        .then((data) => {
+            data.forEach((doc) => {
+                blogsList.push({
+                    blogId: doc.id,
+                    blocks: doc.data().blocks,
+                    likes: doc.data().likes,
+                    postedBy: doc.data().postedBy,
+                    uploadedAt: doc.data().uploadedAt,
+                    views: doc.data().views
+                });
+            });
+        })
+        .catch((err) => {
+            console.error("Err", err);
+        });
     
     let blogs = JSON.parse(JSON.stringify(blogsList));
 
@@ -88,8 +106,20 @@ export async function getStaticPaths() {
 export async function getStaticProps({params}) {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
+    let blogData = [];
     
-    let blogData = await fetchSingleBlog(`${params.id}`);
+    await db.doc(`/blogs/${params.id}`)
+        .get()
+        .then((doc) => {
+            if (!doc.exists) {
+                return res.status(404).json({ error: 'Blog not found' });
+            }
+
+            blogData = doc.data();
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 
     let blog = JSON.parse(JSON.stringify(blogData));
 
@@ -100,5 +130,6 @@ export async function getStaticProps({params}) {
         props: {
             blog,
         },
+        revalidate: 1
     }
 }

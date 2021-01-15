@@ -7,33 +7,33 @@ import BlogCard from '../components/user/BlogCard';
 import {db} from "../config/config"
 import useSWR from 'swr'; 
 
-const fetcher = async (url) => {
-  let blogsList = [];
-  await db.collection("blogs")
-    .orderBy("uploadedAt", "desc")
-    .get()
-    .then((data) => {
-      data.forEach((doc) => {
-        blogsList.push({
-          blogId: doc.id,
-          blocks: doc.data().blocks,
-          likes: doc.data().likes,
-          postedBy: doc.data().postedBy,
-          uploadedAt: doc.data().uploadedAt,
-          views: doc.data().views
-        });
-      });
-    })
-    .catch((err) => {
-      console.error("Err", err);
-    });
+// const fetcher = async (url) => {
+//   let blogsList = [];
+//   await db.collection("blogs")
+//     .orderBy("uploadedAt", "desc")
+//     .get()
+//     .then((data) => {
+//       data.forEach((doc) => {
+//         blogsList.push({
+//           blogId: doc.id,
+//           blocks: doc.data().blocks,
+//           likes: doc.data().likes,
+//           postedBy: doc.data().postedBy,
+//           uploadedAt: doc.data().uploadedAt,
+//           views: doc.data().views
+//         });
+//       });
+//     })
+//     .catch((err) => {
+//       console.error("Err", err);
+//     });
 
-  return blogsList;
-};
+//   return blogsList;
+// };
 
-export default function Home(props) {
+export default function Home({blogs}) {
 
-  const { data } = useSWR('/api/client/blog/getAllBlogs', fetcher, { initialData: props.blogs });
+  // const { data } = useSWR('/api/client/blog/getAllBlogs', fetcher, { initialData: props.blogs });
 
   return (
     <div>
@@ -56,7 +56,7 @@ export default function Home(props) {
 
       <Divider orientation="horizontal" colorScheme="black" size="15px 15px" />
       <Stack spacing={8} w={["100%","90%","80%"]} margin="auto" paddingTop="40px">
-        {data.map((blog) => {
+        {blogs.map((blog) => {
           return <div key={blog.blogId}>
             <BlogCard
               blog={blog}
@@ -72,7 +72,26 @@ export default function Home(props) {
 
 
 export async function getStaticProps(context) {
-  let blogsList = await fetcher("getAllBlogs");
+  let blogsList = [];
+  await db.collection("blogs")
+    .orderBy("uploadedAt", "desc")
+    .get()
+    .then((data) => {
+      data.forEach((doc) => {
+        blogsList.push({
+          blogId: doc.id,
+          blocks: doc.data().blocks,
+          likes: doc.data().likes,
+          postedBy: doc.data().postedBy,
+          uploadedAt: doc.data().uploadedAt,
+          views: doc.data().views
+        });
+      });
+      return res.json(blogsList);
+    })
+    .catch((err) => {
+      console.error("Err", err);
+    });
 
   let Allblogs = JSON.parse(JSON.stringify(blogsList));
   let blogs = Allblogs.slice(0,5);
@@ -81,5 +100,6 @@ export async function getStaticProps(context) {
     props: {
       blogs,
     },
+    revalidate: 1,
   }
 }
