@@ -11,21 +11,21 @@ export default function Footer() {
                 <Divider />
                 <HStack spacing={8} justify="center">
                     <IconButton
-                        colorScheme="teal"
+                        colorScheme="green"
                         aria-label="Call Segun"
                         size="lg"
                         icon={<GrInstagram size="22px" />}
                         isRound={true}
                     />
                     <IconButton
-                        colorScheme="teal"
+                        colorScheme="green"
                         aria-label="Call Segun"
                         size="lg"
                         icon={<FaWordpressSimple size="22px" />}
                         isRound={true}
                     />
                     <IconButton
-                        colorScheme="teal"
+                        colorScheme="green"
                         aria-label="Call Segun"
                         size="lg"
                         icon={<FaTwitter size="22px" />}

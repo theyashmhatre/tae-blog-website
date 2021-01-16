@@ -7,6 +7,7 @@ import BlogCard from '../components/user/BlogCard';
 import {db} from "../config/config"
 import Footer from '../components/user/Layout/Footer/Footer';
 import Link from 'next/link';
+import IndexMetaTag from '../components/user/MetaTags/IndexMetaTag';
 
 
 export default function Home({blogs}) {
@@ -14,11 +15,10 @@ export default function Home({blogs}) {
   return (
     <div>
       {/* Head tag from NextJs allows to specify the page name */}
-      <Head>
-        <title>The Adventurous Engineer</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-      </Head>
+      <IndexMetaTag 
+        desc = "An Engineer who likes to face new adventures and write about the experience. Trekking and Softwares are his forte, but may try something else periodically to spice things up!"
+        coverImageUrl= "https://firebasestorage.googleapis.com/v0/b/the-adventurous-engineer.appspot.com/o/Logo%2Fyellow_logo_tae.png?alt=media&token=898ef120-9061-4d5f-8071-66adfc2ab940"
+      />
 
       {/* Navbar */}
       <Header />

@@ -10,7 +10,7 @@ export default function QuoteBlock(props) {
         <Box fontSize={["16px","20px", "25px"]}>
             <Container centerContent="true">
                 <Divider width="50%" colorScheme="gray.900" size="5px" />
-                <Box width={["100%","100%","90%"]}>
+                <Box width={["100%","100%","100%"]}>
                     <blockquote className={styles.blockquote} style={{ background: quoteBackground }}>
                         {props.block.value}
                     </blockquote>
