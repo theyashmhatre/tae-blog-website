@@ -7,29 +7,6 @@ import BlogCard from '../components/user/BlogCard';
 import {db} from "../config/config"
 import useSWR from 'swr'; 
 
-// const fetcher = async (url) => {
-//   let blogsList = [];
-//   await db.collection("blogs")
-//     .orderBy("uploadedAt", "desc")
-//     .get()
-//     .then((data) => {
-//       data.forEach((doc) => {
-//         blogsList.push({
-//           blogId: doc.id,
-//           blocks: doc.data().blocks,
-//           likes: doc.data().likes,
-//           postedBy: doc.data().postedBy,
-//           uploadedAt: doc.data().uploadedAt,
-//           views: doc.data().views
-//         });
-//       });
-//     })
-//     .catch((err) => {
-//       console.error("Err", err);
-//     });
-
-//   return blogsList;
-// };
 
 export default function Home({blogs}) {
 
@@ -87,7 +64,7 @@ export async function getStaticProps(context) {
           views: doc.data().views
         });
       });
-      return res.json(blogsList);
+      return blogsList;
     })
     .catch((err) => {
       console.error("Err", err);

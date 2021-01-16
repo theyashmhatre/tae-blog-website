@@ -99,15 +99,15 @@ export async function getStaticPaths() {
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
-    return { paths }
+    return { paths, fallback: true, }
 }
 
 
-export async function getStaticProps({params}) {
+export async function getStaticProps({ params }) {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
     let blogData = [];
-    
+
     await db.doc(`/blogs/${params.id}`)
         .get()
         .then((doc) => {
@@ -123,6 +123,7 @@ export async function getStaticProps({params}) {
 
     let blog = JSON.parse(JSON.stringify(blogData));
 
+
     // By returning { props: posts }, the Blog component
     // will receive `posts` as a prop at build time
 
@@ -130,6 +131,5 @@ export async function getStaticProps({params}) {
         props: {
             blog,
         },
-        revalidate: 1
     }
 }
