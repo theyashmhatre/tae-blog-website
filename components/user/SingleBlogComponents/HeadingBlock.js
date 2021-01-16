@@ -5,7 +5,7 @@ import {Fonts} from "../../../public/fonts/fonts"
 export default function HeadingBlock(props) {
     return (
         <div>
-            <Heading fontFamily="Raleway" textAlign="center">
+            <Heading as="h2" fontFamily="Raleway" textAlign="center">
                 {props.block.value}
             </Heading>
         </div>

@@ -5,11 +5,12 @@
 }
 
 .bgImage {
-  filter: blur(3px);
+  filter: blur(2px);
   box-sizing: border-box;  
   height: 50%;
   background-position: center;
   background-repeat: no-repeat;
+  border: 2px solid gray;
   object-fit: cover;
   z-index: 0;
 }

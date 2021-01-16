@@ -1,16 +1,15 @@
 import Head from 'next/head';
 import Header from '../components/user/Layout/Header';
 import Hero from "../components/user/Hero"
-import { Divider, Stack } from "@chakra-ui/react"
+import { Button, Container, Divider, Heading, Stack } from "@chakra-ui/react"
 import axios from 'axios';
 import BlogCard from '../components/user/BlogCard';
 import {db} from "../config/config"
-import useSWR from 'swr'; 
+import Footer from '../components/user/Layout/Footer/Footer';
+import Link from 'next/link';
 
 
 export default function Home({blogs}) {
-
-  // const { data } = useSWR('/api/client/blog/getAllBlogs', fetcher, { initialData: props.blogs });
 
   return (
     <div>
@@ -33,6 +32,9 @@ export default function Home({blogs}) {
 
       <Divider orientation="horizontal" colorScheme="black" size="15px 15px" />
       <Stack spacing={8} w={["100%","90%","80%"]} margin="auto" paddingTop="40px">
+      <Heading as="h2" margin="auto">
+        Blogs
+      </Heading>
         {blogs.map((blog) => {
           return <div key={blog.blogId}>
             <BlogCard
@@ -41,6 +43,14 @@ export default function Home({blogs}) {
           </div>
         })}
       </Stack>
+      <Container centerContent={true} padding="30px 0px 10px 0px">
+        <Button  colorScheme="blue" variant="solid">
+          <Link href="/blogs">
+            Read More...
+          </Link>
+      </Button>
+      </Container>
+      <Footer />
 
 
     </div>

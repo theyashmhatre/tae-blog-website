@@ -4,13 +4,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import BlogCard from '../components/user/BlogCard'
+import Footer from '../components/user/Layout/Footer/Footer'
 import Header from '../components/user/Layout/Header'
 import { db } from "../config/config";
 
 
 export default function Blogs({blogs}) {
-
-    // const {data} = useSWR('/api/client/blog/getAllBlogs',fetcher,{initialData: props.blogs});
 
     return (
         <div>
@@ -34,6 +33,7 @@ export default function Blogs({blogs}) {
                     </div>
                 })}
             </Stack>
+            <Footer />
         </div>
     )
 }

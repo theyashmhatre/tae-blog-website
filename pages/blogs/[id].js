@@ -6,49 +6,8 @@ import { Stack } from '@chakra-ui/react';
 import Components from '../../components/user/CreateComponents/CreateComponents';
 import SeoMeta from '../../components/user/MetaTags/seo-meta';
 import {db} from "../../config/config"
-// import useSWR from 'swr'; 
+import Footer from '../../components/user/Layout/Footer/Footer';
 
-// const fetcher = async (url) => {
-//     let blogsList = [];
-//     await db.collection("blogs")
-//         .orderBy("uploadedAt", "desc")
-//         .get()
-//         .then((data) => {
-//             data.forEach((doc) => {
-//                 blogsList.push({
-//                     blogId: doc.id,
-//                     blocks: doc.data().blocks,
-//                     likes: doc.data().likes,
-//                     postedBy: doc.data().postedBy,
-//                     uploadedAt: doc.data().uploadedAt,
-//                     views: doc.data().views
-//                 });
-//             });
-//         })
-//         .catch((err) => {
-//             console.error("Err", err);
-//         });
-
-//     return blogsList;
-// };
-
-// const fetchSingleBlog = async (id) => {
-//     let blogData = [];
-//     await db.doc(`/blogs/${id}`)
-//         .get()
-//         .then((doc) => {
-//             if (!doc.exists) {
-//                 return res.status(404).json({ error: 'Blog not found' });
-//             }
-
-//             blogData = doc.data();
-//         })
-//         .catch((err) => {
-//             console.error(err);
-//         });
-
-//     return blogData;
-// };
 
 export default function SinglePost({blog}) {
     if (!blog) return null;
@@ -65,6 +24,7 @@ export default function SinglePost({blog}) {
             <Stack spacing={8} w={["90%", "80%", "80%", "75%"]} padding="0px 10px 0px 5px" style={{ margin: "auto" }}>
                 {blocks.map(block=> Components(block))}
             </Stack>
+            <Footer />
         </div>
     )
 }
