@@ -6,6 +6,8 @@ import { CgFormatSeparator } from "react-icons/cg"
 import { FaVideo } from "react-icons/fa"
 import ModalComponent from './ModalComponent';
 
+
+//Grid Elements in the Add Block Modal. So, with this we can add any number of new blocks in the future without the need of any modification here.
 export default function ModalGrid({UpdateBlocks}) {
     return (
         <div>

@@ -32,7 +32,7 @@ let BlockObject = {
         tags: '',
         coverImageUploaded: false,
         coverImageUrl: '',
-        set: false,
+        blogDescription: '',
     },
     separator: {
         _uid: '',

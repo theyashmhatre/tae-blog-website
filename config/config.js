@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/firestore"
 import "firebase/storage";
 
 
@@ -21,6 +22,8 @@ try {
     }
 }
 
+const db = firebase.firestore();
+
 const storage = firebase.storage();  //firebase storage to save files. In our case, Images.
 
-export { storage, firebase as default };
+export { storage, db, firebase as default };

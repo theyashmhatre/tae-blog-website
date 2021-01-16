@@ -51,31 +51,6 @@ export default function ModalShow() {
             ...blocks,  //spread operator which contains the previous value
             newBlockObject 
         ]);
-
-        // console.log(blocks);
-
-        // localStorage.setItem('componentList', JSON.stringify(blocks));
-
-        // // localStorage.setItem('componentList', JSON.stringify(blocks));
-        // console.log("localstoragelist", localStorage.getItem('componentList'));
-        
-        
-        // blocks[newUniqueId] = {
-        //     _uid: "BUY6Drn9e1",
-        //     component: value,
-        //     headline: headings[value],
-        //     timestamp: Date.now()
-        // };
-        // setBlocks((prevState)=> (
-        //     {
-        //         ...prevState,
-        //         [newUniqueId]: {
-        //             _uid: newUniqueId,
-        //             component: value,
-        //             headline: headings[value],
-        //             timestamp: Date.now()
-        //         }
-        //     }));
         onClose();  // closes the Modal
     };
 

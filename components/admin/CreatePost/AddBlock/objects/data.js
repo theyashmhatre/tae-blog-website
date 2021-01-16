@@ -13,7 +13,7 @@ const data = {
                 tags: '',
                 coverImageUploaded: false,
                 coverImageUrl: '',
-                set:false,
+                blogDescription: '',
             }
         ]
     }

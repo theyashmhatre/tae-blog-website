@@ -6,7 +6,11 @@ import CoverImage from './CoverImage';
 import BlockContext from '../../../../context/BlockContext';
 import Axios from 'axios';
 import data from "../AddBlock/objects/data"
+import disableScroll from 'disable-scroll';
+import Description from './Description';
 
+
+//Right Drawer which conatins tags, cover image and publish button
 export default function RightDrawer() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
@@ -14,20 +18,20 @@ export default function RightDrawer() {
     const toast = useToast();  //chakra UI method
 
 
-    function uploadBlogPost() {
+    async function uploadBlogPost() {
         const date = new Date();
+
+        //object to be sent to the api for uploading
         const completeBlockObject = {
             blocks : blocks,
             blogTitle : blocks[0].value,
+            blogDescription: blocks[0].blogDescription,
             coverImageUploaded : blocks[0].coverImageUploaded,
             uploadedAt : date,
         };
-        console.log(completeBlockObject);
-
         
-        Axios.post("/api/admin/submit-post",completeBlockObject)
+        await Axios.post("/api/admin/submit-post",completeBlockObject)
         .then((res)=>{
-            console.log("res",res);
             toast({
                 title: "Blog uploaded successfully! 🎉",
                 description: "Get some rest now.",
@@ -41,11 +45,11 @@ export default function RightDrawer() {
             localStorage.setItem('componentList', JSON.stringify(data.content.body));
             onClose();
         }).catch((err)=>{
-            console.log(err.response);
-            console.log("err",err.response.data);
-            const errors = err.response.data.errors;
-            console.log(errors);
 
+            //receives a list of error from the api
+            const errors = err.response.data.errors;
+
+            //maps the error list into error toasts
             if (errors) {
                 errors.map((error) => {
                     toast({
@@ -62,13 +66,13 @@ export default function RightDrawer() {
 
     return (
         <div>
-            <Button refs={btnRef} colorScheme="teal" onClick={onOpen}>
+            <Button refs={btnRef} colorScheme="teal" onClick={()=>{onOpen();disableScroll.on()}}>
                 Publish
             </Button>
             <Drawer
                 isOpen={isOpen}
                 placement="right"
-                onClose={onClose}
+                onClose={() => { onClose();disableScroll.off()}}
                 finalFocusRef={btnRef}
             >
                 <DrawerOverlay>
@@ -78,6 +82,7 @@ export default function RightDrawer() {
 
                         <DrawerBody>
                             <Tags />
+                            <Description />
                             <CoverImage />
                         </DrawerBody>
 

@@ -3,6 +3,14 @@ import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import BlockContext from "../context/BlockContext"
 import data from "../components/admin/CreatePost/AddBlock/objects/data"
 import { useState } from 'react';
+import { extendTheme } from "@chakra-ui/react"
+import { Fonts } from "../public/fonts/fonts"
+
+const theme = extendTheme({
+  fonts: {
+    heading: "Raleway"
+  },
+})
 
 function MyApp({ Component, pageProps }) {
 
@@ -10,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <BlockContext.Provider value={{ blocks, setBlocks }}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </BlockContext.Provider>
