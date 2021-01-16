@@ -51,6 +51,7 @@ import {db} from "../../config/config"
 // };
 
 export default function SinglePost({blog}) {
+    if (!blog) return null;
     let blocks = blog.blocks;
 
     return (
