@@ -23,6 +23,7 @@ export default function RightDrawer() {
 
         //object to be sent to the api for uploading
         const completeBlockObject = {
+            blogId : new Date().valueof(),
             blocks : blocks,
             blogTitle : blocks[0].value,
             blogDescription: blocks[0].blogDescription,

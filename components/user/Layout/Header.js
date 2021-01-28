@@ -31,23 +31,25 @@ export default function Header(props) {
             wrap="wrap"
             w="100%"
             mb={8}
-            p={8}
+            p={[6,8]}
             bg="gray.900"
             color="white"
             {...props}
         >
-            <Flex align="center" mr={5}>
-                <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
+
+            {/* Blog Title */}
+            <Flex align="center" mr={[2,5]}>
+                <Heading as="h1" size="lg" fontSize={["21px","30px","30px","35px"]} letterSpacing={"-.07rem"}>
                     <Link href="/"><a>The Adventurous Engineer</a></Link>
                 </Heading>
             </Flex>
 
-            <Box display={{ base: "block", md: "none" }} fontSize="30px" onClick={toggleMenu}>
+            <Box display={{ base: "block", md: "none" }} fontSize={["20px","30px"]} onClick={toggleMenu}>
                 {show ? <IoMdClose /> : <GiHamburgerMenu />}
             </Box>
 
             <Box
-                display={{ base: show ? "block" : "none", md: "block" }}
+                display={{ base: show ? "block" : "none", md: "flex" }}
                 flexBasis={{ base: "100%", md: "auto" }}
             >
                 <Flex

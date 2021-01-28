@@ -1,6 +1,6 @@
 import { db } from "../../../../config/config";
 
-export default async (req, res) => {
+
     let blogsList = [];
     await db.collection("blogs")
         .orderBy("uploadedAt", "desc")
