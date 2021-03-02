@@ -33,11 +33,11 @@ export default function Footer() {
                     />
                 </HStack>
                 <HStack spacing={8} justify="center" color="white">
-                    <Link href="/"><a className="link-redirect">Home</a></Link>
+                    <Link href="/"><a>Home</a></Link>
                     <Divider orientation="vertical" height="20px" colorScheme="green.500" />
-                    <Link href="/"><a className="link-redirect">About</a></Link>
+                    <Link href="/"><a >About</a></Link>
                     <Divider orientation="vertical" height="20px" colorScheme="green.500"/>
-                    <Link href="/blogs"><a className="link-redirect">Blogs</a></Link>
+                    <Link href="/blogs"><a >Blogs</a></Link>
                 </HStack>
                 <div></div>
             </Stack>

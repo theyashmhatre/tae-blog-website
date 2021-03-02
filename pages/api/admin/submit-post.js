@@ -2,7 +2,7 @@ import { db } from "../../../config/config"
 
 export default (req, res) => {
 
-    const { blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt } = req.body;
+    const { blogId, blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt } = req.body;
 
     let errors = [];
 
@@ -15,6 +15,7 @@ export default (req, res) => {
     if (errors.length !== 0) return res.status(400).json({ errors: errors });
 
     const newBlog = {
+        blogId : blogId,
         blocks: blocks,
         uploadedAt: uploadedAt,
         likes: 0,

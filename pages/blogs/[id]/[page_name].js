@@ -1,15 +1,19 @@
 import React from 'react';
 import axios from 'axios';
-import Header from "../../components/user/Layout/Header"
+import Header from "../../../components/user/Layout/Header"
 import Head from 'next/head';
 import { Stack } from '@chakra-ui/react';
-import Components from '../../components/user/CreateComponents/CreateComponents';
-import SeoMeta from '../../components/user/MetaTags/seo-meta';
-import {db} from "../../config/config"
-import Footer from '../../components/user/Layout/Footer/Footer';
+import Components from '../../../components/user/CreateComponents/CreateComponents';
+import SeoMeta from '../../../components/user/MetaTags/seo-meta';
+import {db} from "../../../config/config"
+import Footer from '../../../components/user/Layout/Footer/Footer';
+import firebase from "firebase/app";
+import BlogTags from '../../../components/user/SingleBlogComponents/BlogTags';
+import AddComment from '../../../components/user/SingleBlogComponents/AddComment';
+import Comments from '../../../components/user/SingleBlogComponents/Comments';
 
 
-export default function SinglePost({blog}) {
+export default function SinglePost({blog, id}) {
     if (!blog) return null;
     let blocks = blog.blocks;
 
@@ -24,6 +28,13 @@ export default function SinglePost({blog}) {
             <Stack spacing={8} w={["90%", "80%", "80%", "75%"]} padding="0px 10px 0px 5px" style={{ margin: "auto" }}>
                 {blocks.map(block=> Components(block))}
             </Stack>
+            <BlogTags 
+                tags = {blocks[0].tags}
+            />
+            <Comments 
+                blogId = {id}
+                blogName = {blocks[0].value}
+            />
             <Footer />
         </div>
     )
@@ -55,7 +66,7 @@ export async function getStaticPaths() {
 
     // Get the paths we want to pre-render based on posts
     const paths = blogs.map((blog) => ({
-        params: { id: blog.blogId },
+        params: { id: blog.blogId, page_name: blog.blogId },
     }))
 
     // We'll pre-render only these paths at build time.
@@ -68,6 +79,7 @@ export async function getStaticProps({ params }) {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
     let blogData = [];
+    let id = params.id;
 
     await db.doc(`/blogs/${params.id}`)
         .get()
@@ -77,6 +89,16 @@ export async function getStaticProps({ params }) {
             }
 
             blogData = doc.data();
+
+        })
+        .then(()=>{
+
+            //updates views count by 1 everytime a single post is viewed
+            var blogRef = db.doc(`/blogs/${params.id}`);
+            blogRef.update({
+                views: firebase.firestore.FieldValue.increment(1),
+            });
+
         })
         .catch((err) => {
             console.error(err);
@@ -91,6 +113,7 @@ export async function getStaticProps({ params }) {
     return {
         props: {
             blog,
+            id
         },
     }
 }

@@ -39,7 +39,9 @@ export default function VideoBlock(props) {
 
     function onBlur(e) {
         props.block.videoDesc = Object.values(desc)[0];
-        localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
+        if (props.block.videoDesc) {
+            localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
+        }
     }
 
     //uploads the image on firebase in the directory images/ after the user clicks on upload

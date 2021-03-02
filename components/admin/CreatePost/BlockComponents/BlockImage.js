@@ -3,7 +3,7 @@ import { Button, Heading, Progress, Image, Box, Center, Container, IconButton, T
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react"
 import { storage } from "../../../../config/config";
 import { useToast } from "@chakra-ui/react"
-import { AiOutlineCloudUpload} from "react-icons/ai"
+import { AiOutlineCloudUpload } from "react-icons/ai"
 import BlockContext from "../../../../context/BlockContext"
 import { RiCloseCircleFill } from 'react-icons/ri';
 import Axios from "axios";
@@ -41,7 +41,10 @@ export default function BlockImage(props) {
 
     function onBlur(e) {
         props.block.imageDesc = Object.values(desc)[0];
-        localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
+        console.log(props.block.imageDesc);
+        if (props.block.imageDesc) {
+            localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
+        }
     }
 
     //uploads the image on firebase in the directory images/ after the user clicks on upload
@@ -59,7 +62,7 @@ export default function BlockImage(props) {
             return null;
         }
 
-        const uploadTask = storage.ref(`${blocks[0]._uid}` +"/images/" +`${image.raw.name}`).put(image.raw);
+        const uploadTask = storage.ref(`${blocks[0]._uid}` + "/images/" + `${image.raw.name}`).put(image.raw);
         uploadTask.on(
             "state_changed",
             snapshot => {
@@ -74,7 +77,7 @@ export default function BlockImage(props) {
             },
             () => {
                 storage
-                    .ref(blocks[0]._uid+"/images")
+                    .ref(blocks[0]._uid + "/images")
                     .child(image.raw.name)
                     .getDownloadURL()
                     .then(url => {
@@ -146,7 +149,7 @@ export default function BlockImage(props) {
                         />
                 ) : (
                         <>
-                            <Box w={["100%","50%","50%"]} color="white" bgColor="gray.800" border="1px solid black" borderRadius="5px" padding="5px 5px" margin="auto">
+                            <Box w={["100%", "50%", "50%"]} color="white" bgColor="gray.800" border="1px solid black" borderRadius="5px" padding="5px 5px" margin="auto">
                                 <input type="file" onChange={handleChange} />
                             </Box>
                         </>
@@ -176,7 +179,7 @@ export default function BlockImage(props) {
 
             {/* Image is shown once the url is successfully updated */}
 
-            
+
 
             {/* Progress Bar Hides once it reaches 100 or if the image is already uploaded */}
             {progress === 100 || props.block.imageUploaded || !image.visible ? <></> : <Progress value={progress} />}

@@ -19,11 +19,13 @@ export default function BlogHeader(props) {
     // once this input element is out of focus, it adds the final value as the value of the block
     function onBlur(e) {
         props.block.value = Object.values(headValue)[0];
-        localStorage.setItem('componentList', JSON.stringify(blocks));
+        if (props.block.value) {
+            localStorage.setItem('componentList', JSON.stringify(blocks));
+        }
     }
 
     return (
-        <div style={{paddingTop:"30px"}}>
+        <div style={{ paddingTop: "30px" }}>
             <Textarea
                 placeholder="Blog Title"
                 size="lg" onBlur={onBlur}
@@ -31,7 +33,7 @@ export default function BlogHeader(props) {
                 variant="flushed"
                 defaultValue={props.block.value}
                 isRequired={true}
-                fontSize={["22px"   ,"30px","40px"]}
+                fontSize={["22px", "30px", "40px"]}
                 fontWeight="bold"
                 padding="50px 0px"
                 textAlign="center"

@@ -10,7 +10,7 @@ import RemoveComponent from '../RemoveComponent';
 export default function BlockPara(props) {
     const [paraValue, setParaValue] = useState('');
     const { blocks, setBlocks } = useContext(BlockContext);
-    
+
 
     // changes the "value" as the user input changes
     function handleChange(event) {
@@ -24,14 +24,16 @@ export default function BlockPara(props) {
     // once this input element is out of focus, it adds the final value as the value of the block
     function onBlur(e) {
         props.block.value = Object.values(paraValue)[0];
-        localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+        if (props.block.value) {
+            localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+        }
     }
 
     return (
         <>
             {/* Close Button */}
-            <RemoveComponent 
-                uid = {props.block._uid}
+            <RemoveComponent
+                uid={props.block._uid}
             />
 
             {/* Input Component */}
