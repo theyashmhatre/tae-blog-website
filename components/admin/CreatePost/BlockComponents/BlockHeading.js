@@ -14,14 +14,16 @@ export default function BlockHeading(props) {
         const value = event.target.value;
         setHeadValue({
             ...headValue,
-            [event.target.name]: value
+            [event.target.name]: value,
         });
     }
 
     // once this input element is out of focus, it adds the final value as the value of the block
     function onBlur(e) {
         props.block.value = Object.values(headValue)[0];
-        localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+        if(props.block.value) {
+            localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+        }
     }
 
     return (

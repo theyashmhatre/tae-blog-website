@@ -11,4 +11,7 @@ module.exports = {
         APPID: process.env.APPID,
         MEASUREMENTID: process.env.MEASUREMENTID
     },
+    images: {
+        domains: ['firebasestorage.googleapis.com'],
+    },
 };

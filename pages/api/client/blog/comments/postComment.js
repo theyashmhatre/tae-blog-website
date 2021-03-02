@@ -1,15 +1,15 @@
 import { db } from "../../../../../config/config";
 
 export default async (req, res) => {
-    const {name, email, content, blogId, commentedAt} = req.body;
+    const {name, content, blogId, commentedAt} = req.body;
 
     const newComment = {
-        name, email, content, blogId, commentedAt
+        name, content, blogId, commentedAt
     };
 
     let errors = [];
 
-    if (!name || !email || !content) errors.push("Please enter all the required fields and retry");
+    if (!name || !content) errors.push("Please enter all the required fields and retry");
 
     if (errors.length !== 0) return res.status(400).json({ errors: errors });
 

@@ -35,9 +35,6 @@ export default function SinglePost({blog, id}) {
                 blogId = {id}
                 blogName = {blocks[0].value}
             />
-            <AddComment 
-                blogId = {id}
-            />
             <Footer />
         </div>
     )
