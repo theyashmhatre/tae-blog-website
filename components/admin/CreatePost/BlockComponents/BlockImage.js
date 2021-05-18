@@ -6,7 +6,9 @@ import { useToast } from "@chakra-ui/react"
 import { AiOutlineCloudUpload } from "react-icons/ai"
 import BlockContext from "../../../../context/BlockContext"
 import { RiCloseCircleFill } from 'react-icons/ri';
+import { CgArrowUpO, CgArrowDownO } from "react-icons/cg";
 import Axios from "axios";
+import { swapElement } from "./utils/utils";
 
 
 //This component will be dynamically added to the CreatePost Stack when Image is clicked in the Modal
@@ -134,6 +136,14 @@ export default function BlockImage(props) {
         <div>
             {/* CLose Button */}
             <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+                {progress === 100 || props.block.imageUploaded ?
+                    <></> :
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
+                        <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
+                    </div>
+                }
+                <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
+                <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
                 <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
             </div>
 
@@ -170,12 +180,6 @@ export default function BlockImage(props) {
             </div>
 
             {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
-            {progress === 100 || props.block.imageUploaded ?
-                <></> :
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
-                    <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
-                </div>
-            }
 
             {/* Image is shown once the url is successfully updated */}
 

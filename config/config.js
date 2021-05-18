@@ -11,16 +11,21 @@ const firebaseConfig = {
     storageBucket: process.env.STORAGEBUCKET,
     messagingSenderId: process.env.MESSAGINGSENDERID,
     appId: process.env.APPID,
-    measurementId: process.env.MEASUREMENTID
+    measurementId: process.env.MEASUREMENTID,
+    databaseURL: process.env.DATABASEURL,
 };
 
-try {
-    firebase.initializeApp(firebaseConfig);
-} catch (err) {
-    if (!/already exists/.test(err.message)) {
-        console.error('Firebase initialization error', err.stack);
+if (!firebase.apps.length) {
+    try {
+        firebase.initializeApp(firebaseConfig);
+        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    } catch (err) {
+        if (!/already exists/.test(err.message)) {
+            console.error('Firebase initialization error', err.stack);
+        }
     }
 }
+
 
 const db = firebase.firestore();
 

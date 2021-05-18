@@ -9,13 +9,13 @@ export default (req, res) => {
     if (blogTitle.length < 10) errors.push("Blog Title must be atleast 10 characters long");
 
     if (!blogDescription) errors.push("Description must be 10 to 250 characters long");
-    
+
     if (!coverImageUploaded) errors.push("Please upload a cover image");
 
     if (errors.length !== 0) return res.status(400).json({ errors: errors });
 
     const newBlog = {
-        blogId : blogId,
+        blogId: blogId,
         blocks: blocks,
         uploadedAt: uploadedAt,
         likes: 0,
@@ -27,7 +27,7 @@ export default (req, res) => {
     switch (req.method) {
         case "POST":
             return new Promise((resolve, reject) => {
-                db.collection("blogs")
+                db.collection("drafts")
                     .add(newBlog)
                     .then((doc) => {
                         res.statusCode = 201;

@@ -10,11 +10,19 @@ import { DependencyList } from "react";
 import data from "../../components/admin/CreatePost/AddBlock/objects/data"
 import styles from "../../styles/CreatePost.module.css"
 import StickyFooter from '../../components/admin/CreatePost/Footer/StickyFooter'
-import {Fonts} from "../../public/fonts/fonts"
+import {useAuth} from "../../lib/auth";
+import { useRouter } from 'next/router'
 
 export default function CreatePost() {
 
     const {blocks, setBlocks} = useContext(BlockContext);
+    const router = useRouter();
+
+    const { user, loading } = useAuth();
+
+    if (!loading && !user) {
+        router.push('/admin/login');
+    }
 
     useEffect(() => {
             //it sets the localstorage as default blockList if it is empty
@@ -54,7 +62,7 @@ export default function CreatePost() {
                 <Stack spacing={8} w={["90%", "80%", "70%", "800px"]} style={{ margin: "auto" }}>
 
                     {/* this map function maps all the objects in the blocks and send them one by one to AddBlock.js which creates the Components */}
-                    {blocks.map(block => Components(block))}  
+                    {blocks.map((block, index, array) => Components(block, index, array))}  
 
                 </Stack>
                 <StickyFooter />

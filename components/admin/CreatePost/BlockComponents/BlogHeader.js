@@ -1,20 +1,13 @@
 import { Heading, Input, Textarea } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react'
 import BlockContext from "../../../../context/BlockContext"
+import {handleChange} from "../BlockComponents/utils/utils";
 
 export default function BlogHeader(props) {
 
     const [headValue, setHeadValue] = useState('');
     const { blocks, setBlocks } = useContext(BlockContext);
 
-    // changes the "value" as the user input changes
-    function handleChange(event) {
-        const value = event.target.value;
-        setHeadValue({
-            ...headValue,
-            [event.target.name]: value
-        });
-    }
 
     // once this input element is out of focus, it adds the final value as the value of the block
     function onBlur(e) {
@@ -29,7 +22,7 @@ export default function BlogHeader(props) {
             <Textarea
                 placeholder="Blog Title"
                 size="lg" onBlur={onBlur}
-                onChange={handleChange}
+                onChange={(e) => {handleChange(e, headValue, setHeadValue)}}z
                 variant="flushed"
                 defaultValue={props.block.value}
                 isRequired={true}

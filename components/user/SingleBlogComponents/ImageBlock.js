@@ -25,7 +25,7 @@ export default function ImageBlock(props) {
                         </Skeleton>
                 </div>}
                 
-                <Box>
+                <Box width="110%">
                     <Image src={props.block.url} width={1000} height={700} onLoad={(() => setImageLoaded(true))} />
                 </Box>
                 <Text padding="7px" fontSize={["15px", "20px"]} fontStyle="italic">{props.block.imageDesc}</Text>

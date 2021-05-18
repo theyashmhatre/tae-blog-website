@@ -2,8 +2,10 @@ import { AspectRatio, Box, Button, Center, Container, Editable, EditableInput, E
 import React, { useContext, useState } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { RiCloseCircleFill } from 'react-icons/ri';
+import { CgArrowUpO, CgArrowDownO } from "react-icons/cg";
 import BlockContext from '../../../../context/BlockContext';
 import { storage } from "../../../../config/config"
+import {swapElement} from "./utils/utils";
 
 export default function VideoBlock(props) {
 
@@ -27,6 +29,7 @@ export default function VideoBlock(props) {
                 uploaded: false,
             });
         }
+
     };
 
     function handleDescChange(editableValue) {
@@ -38,15 +41,19 @@ export default function VideoBlock(props) {
     }
 
     function onBlur(e) {
+        console.log(props);
         props.block.videoDesc = Object.values(desc)[0];
         if (props.block.videoDesc) {
             localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
         }
     }
 
+ 
+
     //uploads the image on firebase in the directory images/ after the user clicks on upload
     const handleUpload = async e => {
         e.preventDefault();
+        console.log(video);
 
         if (!video.raw) {  // if user hasn't loaded any input image, it'll display an error toast
             toast({
@@ -138,8 +145,17 @@ export default function VideoBlock(props) {
 
     return (
         <div>
+            {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
             {/* CLose Button */}
             <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+                {progress === 100 || props.block.videoUploaded ?
+                    <></> :
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
+                        <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
+                    </div>
+                }
+                <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up")}} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
+                <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
                 <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
             </div>
 
@@ -150,13 +166,6 @@ export default function VideoBlock(props) {
                     </Box>
                 </label>}
 
-            {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
-            {progress === 100 || props.block.videoUploaded ?
-                <></> :
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
-                    <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
-                </div>
-            }
 
             <div>
                 <Container>
@@ -167,6 +176,7 @@ export default function VideoBlock(props) {
                             height={["300px", "400px"]}
                             title={props.block.videoDesc}
                             src={props.block.url}
+                            autoplay="false"
                             allowFullScreen
                         />
                         : <></>}

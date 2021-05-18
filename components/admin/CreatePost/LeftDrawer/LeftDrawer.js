@@ -18,7 +18,6 @@ export default function LeftDrawer() {
         localStorage.setItem('componentList', JSON.stringify(data.content.body));
     }
 
-
     return (
         <div>
             <IconButton ref={btnRef} icon={<AiFillSetting size="25px" />} colorScheme="teal" onClick={onOpen} />
