@@ -1,6 +1,5 @@
-import { Box, Container, Skeleton, Stack, Text } from '@chakra-ui/react'
+import { Box, Container, Skeleton, Stack, Text, Image } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import Image from "next/image";
 
 export default function ImageBlock(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -26,7 +25,7 @@ export default function ImageBlock(props) {
                 </div>}
                 
                 <Box width="110%">
-                    <Image src={props.block.url} width={1000} height={700} onLoad={(() => setImageLoaded(true))} />
+                    <Image alt={props.block.imageDesc} height="100%" w={["100%", "100%", "80%"]} margin="auto" src={props.block.url} onLoad={(() => {setImageLoaded(true)})}/>
                 </Box>
                 <Text padding="7px" fontSize={["15px", "20px"]} fontStyle="italic">{props.block.imageDesc}</Text>
             </Container>

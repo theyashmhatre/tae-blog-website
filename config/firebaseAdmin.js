@@ -1,7 +1,6 @@
 import * as firebaseAdmin from "firebase-admin";
-import serviceAccount from './serviceAccountKey.json';
 
-if (!serviceAccount) {
+if (!process.env.PROJECTID || !process.env.CLIENTEMAIL || !process.env.PRIVATEKEY) {
     console.log(
         `Failed to load Firebase credentials. Follow the instructions in the README to set your Firebase credentials inside environment variables.`
     );
@@ -15,10 +14,13 @@ if (!firebaseAdmin.apps.length) {
             privateKey: process.env.PRIVATEKEY,
         }),
         databaseURL: `https://${process.env.PROJECTID}.firebaseio.com`,
+        storageBucket: process.env.STORAGEBUCKET,
+
     });
 }
 
 const firestore = firebaseAdmin.firestore();
 const auth = firebaseAdmin.auth();
+const bucket = firebaseAdmin.storage().bucket();
 
-export { firestore, auth };
+export { firestore, auth, bucket };

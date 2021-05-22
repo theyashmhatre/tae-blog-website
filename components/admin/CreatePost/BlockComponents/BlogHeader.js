@@ -22,7 +22,7 @@ export default function BlogHeader(props) {
             <Textarea
                 placeholder="Blog Title"
                 size="lg" onBlur={onBlur}
-                onChange={(e) => {handleChange(e, headValue, setHeadValue)}}z
+                onChange={(e) => {handleChange(e, headValue, setHeadValue)}}
                 variant="flushed"
                 defaultValue={props.block.value}
                 isRequired={true}

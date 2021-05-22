@@ -2,7 +2,7 @@ import { db } from "../../../config/config"
 
 export default (req, res) => {
 
-    const { blogId, blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt, userUID, postedBy } = req.body;
+    const { blogId, blogUID, blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt, userUID, postedBy } = req.body;
 
     let errors = [];
 
@@ -28,12 +28,11 @@ export default (req, res) => {
         case "POST":
             return new Promise((resolve, reject) => {
                 db.collection("drafts")
-                    .add(newBlog)
-                    .then((doc) => {
+                    .doc(blogUID).set(newBlog)
+                    .then(() => {
                         res.statusCode = 201;
                         res.end(JSON.stringify({
                             success: true,
-                            id: doc.id,
                         }));
                         resolve();
                     })

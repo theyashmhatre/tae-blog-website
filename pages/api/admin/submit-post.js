@@ -2,7 +2,8 @@ import { db } from "../../../config/config"
 
 export default (req, res) => {
 
-    const { blogId, blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt, userUID, postedBy } = req.body;
+    const { blogId, blogUID, blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt, userUID, postedBy } = req.body;
+    const clearDraftQuery = db.collection('drafts').doc(blogUID);
 
     let errors = [];
 
@@ -30,6 +31,7 @@ export default (req, res) => {
                 db.collection("blogs")
                     .add(newBlog)
                     .then((doc) => {
+                        clearDraftQuery.delete();
                         res.statusCode = 201;
                         res.end(JSON.stringify({
                             success: true,

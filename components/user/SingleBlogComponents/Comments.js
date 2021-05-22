@@ -9,7 +9,7 @@ export default function Comments({blogId, blogName}) {
     const value = useColorModeValue("gray.400", "gray.700");
 
     const fetchComments = async () => {
-        await axios.post("/api/client/blog/comments/getComments", { blogId: blogId })
+        await axios.post("/api/client/blog/comments/getComments/", { blogId: blogId })
             .then((res) => {
                 setComments(res.data.commentList);
             })
@@ -33,7 +33,7 @@ export default function Comments({blogId, blogName}) {
                 <Stack paddingBottom="50px">
                     {comments ? comments.map((comment, i) => {
                         let date = new Date(comment.commentedAt).toDateString()
-                        let finalDate = date.slice(0,2) + "," +date.slice(2);
+                        let finalDate = date.slice(0,3) + "," +date.slice(3);
                         return (
                             <Box border="1px solid white" padding="15px" key={i} width="100%" borderRadius="5px" bgColor={value} margin="20px 0px 10px 0px" >
                                 <HStack marginBottom="20px">

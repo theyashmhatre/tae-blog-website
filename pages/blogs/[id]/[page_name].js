@@ -12,8 +12,9 @@ import BlogTags from '../../../components/user/SingleBlogComponents/BlogTags';
 import AddComment from '../../../components/user/SingleBlogComponents/AddComment';
 import Comments from '../../../components/user/SingleBlogComponents/Comments';
 
-
 export default function SinglePost({blog, id}) {
+
+    
     if (!blog) return null;
     let blocks = blog.blocks;
 
@@ -63,7 +64,6 @@ export async function getStaticPaths() {
     
     let blogs = JSON.parse(JSON.stringify(blogsList));
 
-
     // Get the paths we want to pre-render based on posts
     const paths = blogs.map((blog) => ({
         params: { id: blog.blogId, page_name: blog.blogId },
@@ -76,8 +76,6 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params }) {
-    // Call an external API endpoint to get posts.
-    // You can use any data fetching library
     let blogData = [];
     let id = params.id;
 
@@ -85,7 +83,7 @@ export async function getStaticProps({ params }) {
         .get()
         .then((doc) => {
             if (!doc.exists) {
-                return res.status(404).json({ error: 'Blog not found' });
+                console.log("Blog Not Found, ID -", params.id);
             }
 
             blogData = doc.data();
@@ -115,5 +113,6 @@ export async function getStaticProps({ params }) {
             blog,
             id
         },
+        revalidate: 1,
     }
 }

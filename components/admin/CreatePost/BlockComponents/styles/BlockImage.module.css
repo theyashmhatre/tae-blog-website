@@ -1,0 +1,23 @@
+.file {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+  color: hsl(0, 0%, 29%);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label:active {
+  background-color: hsl(0, 0%, 96%);
+}

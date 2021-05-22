@@ -31,7 +31,7 @@ export default function AddComment({blogId, fetchComments}) {
         };
 
         try {
-            await axios.post("/api/client/blog/comments/postComment", newComment);
+            await axios.post("/api/client/blog/comments/postComment/", newComment);
             toast({
                 title: "Thanks for the comment! 😄",
                 description: "It'll surely help get this blog better.",

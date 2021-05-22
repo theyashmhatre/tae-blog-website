@@ -39,14 +39,17 @@ export default function BlockPara(props) {
             />
 
             {/* Input Component */}
-            <Textarea
-                placeholder="Start writing..."
-                size="sm"
-                resize="vertical"
-                onBlur={onBlur}
-                onChange={(e) => {handleChange(e, paraValue, setParaValue)}}
-                defaultValue={props.block.value}
-            />
+            <div>
+                <Textarea
+                    placeholder="Start writing..."
+                    marginTop="-30px"
+                    size="sm"
+                    resize="vertical"
+                    onBlur={onBlur}
+                    onChange={(e) => { handleChange(e, paraValue, setParaValue) }}
+                    defaultValue={props.block.value}
+                />
+            </div>
         </>
     )
 }

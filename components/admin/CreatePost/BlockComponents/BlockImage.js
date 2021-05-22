@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Button, Heading, Progress, Image, Box, Center, Container, IconButton, Text, useColorModeValue } from "@chakra-ui/react";
+import { Button, Heading, Progress, Image, Box, Center, Container, IconButton, Text, useColorModeValue, HStack, Spacer } from "@chakra-ui/react";
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react"
 import { storage } from "../../../../config/config";
 import { useToast } from "@chakra-ui/react"
@@ -9,6 +9,9 @@ import { RiCloseCircleFill } from 'react-icons/ri';
 import { CgArrowUpO, CgArrowDownO } from "react-icons/cg";
 import Axios from "axios";
 import { swapElement } from "./utils/utils";
+import styles from "./styles/BlockImage.module.css";
+import {hasExtension} from './utils/utils';
+import uniqid from "uniqid";
 
 
 //This component will be dynamically added to the CreatePost Stack when Image is clicked in the Modal
@@ -26,11 +29,23 @@ export default function BlockImage(props) {
     //executes once the file is selected or changed.
     const handleChange = e => {
         if (e.target.files[0]) {
-            setImage({
-                preview: URL.createObjectURL(e.target.files[0]), //Offline preview url
-                raw: e.target.files[0]
-            });
+            if (hasExtension(props.block._uid, ['.jpeg', '.jpg', '.png', '.gif', '.tiff', '.webp', '.svg'])) {
+                setImage({
+                    preview: URL.createObjectURL(e.target.files[0]), //Offline preview url
+                    raw: e.target.files[0]
+                });
+            }
+            else{
+                toast({
+                    title: "Image format not supported",
+                    description: "Supported formats are .jpeg, .jpg, .png, .gif, .tiff, .webp, .svg",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
         }
+        console.log(e, image);
     };
 
     function handleDescChange(editableValue) {
@@ -55,8 +70,8 @@ export default function BlockImage(props) {
 
         if (!image.raw) {  // if user hasn't loaded any input image, it'll display an error toast
             toast({
-                title: "No image uploaded",
-                description: "Please upload an image and try again.",
+                title: "No image selected",
+                description: "Please select an image and try again.",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -64,7 +79,9 @@ export default function BlockImage(props) {
             return null;
         }
 
-        const uploadTask = storage.ref(`${blocks[0]._uid}` + "/images/" + `${image.raw.name}`).put(image.raw);
+        const uniqueImageId = uniqid(`${image.raw.name}-`);
+
+        const uploadTask = storage.ref(`${blocks[0]._uid}` + "/images/" + `${uniqueImageId}`).put(image.raw);
         uploadTask.on(
             "state_changed",
             snapshot => {
@@ -80,7 +97,7 @@ export default function BlockImage(props) {
             () => {
                 storage
                     .ref(blocks[0]._uid + "/images")
-                    .child(image.raw.name)
+                    .child(uniqueImageId)
                     .getDownloadURL()
                     .then(url => {
                         setUrl(url);
@@ -135,20 +152,20 @@ export default function BlockImage(props) {
     return (
         <div>
             {/* CLose Button */}
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
-                {progress === 100 || props.block.imageUploaded ?
-                    <></> :
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
-                        <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
-                    </div>
-                }
-                <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
-                <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
-                <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
+            <div style={{marginBottom:"10px"}}>
+                <HStack>
+                    <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
+                    <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
+                    <Spacer />
+                    {progress === 100 || props.block.imageUploaded ?
+                        <></> :
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
+                            <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
+                        </div>
+                    }
+                    <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
+                </HStack>
             </div>
-
-
-            <label htmlFor="upload-button">
 
                 {/* displays the preview if it exists else the input area */}
                 {/* Hides the preview if image already uploaded */}
@@ -158,13 +175,18 @@ export default function BlockImage(props) {
                             style={{ display: "block", margin: "auto" }}
                         />
                 ) : (
-                        <>
-                            <Box w={["100%", "50%", "50%"]} color="white" bgColor="gray.800" border="1px solid black" borderRadius="5px" padding="5px 5px" margin="auto">
-                                <input type="file" onChange={handleChange} />
-                            </Box>
-                        </>
-                    )}
-            </label>
+                    <>
+                            <Box w={["100%", "50%", "50%"]} color="white" bgGradient="linear(to-r, #83eaf1, #63a4ff)" boxShadow={useColorModeValue("4px 0px 10px 0px lightblue", "0px 0px 8px 0px darkgrey")} borderRadius="5px" margin="auto">
+                            <div className={styles.css}>
+                                <label htmlFor={props.block._uid} className={styles.label} >
+                                    <AiOutlineCloudUpload size="25px" style={{marginRight:"10px"}} />
+                                    Select an Image
+                                </label>
+                                    <input id={props.block._uid} type='file' style={{ display: "none" }} onChange={handleChange}  />
+                            </div>
+                        </Box>
+                    </>
+                )}
             <br />
 
             <div>

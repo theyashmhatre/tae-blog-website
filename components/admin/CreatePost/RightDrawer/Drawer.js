@@ -29,6 +29,7 @@ export default function RightDrawer() {
         //object to be sent to the api for uploading
         const completeBlockObject = {
             blogId : new Date().valueOf(),
+            blogUID: blocks[0]._uid,
             blocks : blocks,
             blogTitle : blocks[0].value,
             blogDescription: blocks[0].blogDescription,
@@ -37,39 +38,58 @@ export default function RightDrawer() {
             userUID: user.uid,
             postedBy: user.name,
         };
-        
-        await Axios.post("/api/admin/submit-post",completeBlockObject)
-        .then((res)=>{
-            toast({
-                title: "Blog uploaded successfully! 🎉",
-                description: "Get some rest now.",
-                status: "success",
-                duration: 7000,
-                isClosable: true,
-                position: 'bottom-right'
-            });
-        }).then(()=>{
-            setBlocks(data.content.body);
-            localStorage.setItem('componentList', JSON.stringify(data.content.body));
-            onClose();
-        }).catch((err)=>{
 
-            //receives a list of error from the api
-            const errors = err.response.data.errors;
+        let allFilesUploaded = true;
 
-            //maps the error list into error toasts
-            if (errors) {
-                errors.map((error) => {
-                    toast({
-                        title: error,
+        blocks.some(function(block)  {
+            if (block.imageUploaded === false || block.videoUploaded === false || block.coverImageUploaded === false){
+                toast({
+                        title: 'Some images/videos are not uploaded.',
+                        description: "Please upload or remove them and try again!",
                         status: "error",
                         duration: 5000,
                         isClosable: true,
                         position: 'bottom-right'
                     });
-                });
+                allFilesUploaded = false;
+                return true;
             }
         });
+        
+       if (allFilesUploaded) {
+           await Axios.post("/api/admin/submit-post/", completeBlockObject)
+               .then((res) => {
+                   toast({
+                       title: "Blog uploaded successfully! 🎉",
+                       description: "Get some rest now.",
+                       status: "success",
+                       duration: 7000,
+                       isClosable: true,
+                       position: 'bottom-right'
+                   });
+               }).then(() => {
+                   setBlocks(data.content.body);
+                   localStorage.setItem('componentList', JSON.stringify(data.content.body));
+                   onClose();
+               }).catch((err) => {
+
+                   //receives a list of error from the api
+                   const errors = err.response.data.errors;
+
+                   //maps the error list into error toasts
+                   if (errors) {
+                       errors.map((error) => {
+                           toast({
+                               title: error,
+                               status: "error",
+                               duration: 5000,
+                               isClosable: true,
+                               position: 'bottom-right'
+                           });
+                       });
+                   }
+               });
+       }
     }
 
     async function saveDraftPost() {
@@ -78,6 +98,7 @@ export default function RightDrawer() {
         //object to be sent to the api for uploading
         const completeBlockObject = {
             blogId: new Date().valueOf(),
+            blogUID: blocks[0]._uid,
             blocks: blocks,
             blogTitle: blocks[0].value,
             blogDescription: blocks[0].blogDescription,
@@ -87,11 +108,11 @@ export default function RightDrawer() {
             postedBy: user.name,
         };
 
-        await Axios.post("/api/admin/upload-draft", completeBlockObject)
+        await Axios.post("/api/admin/upload-draft/", completeBlockObject)
             .then((res) => {
                 toast({
-                    title: "Blog uploaded successfully! 🎉",
-                    description: "Get some rest now.",
+                    title: "Draft saved successfully!",
+                    description: "Can't wait to see the completed version😋",
                     status: "success",
                     duration: 7000,
                     isClosable: true,

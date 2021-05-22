@@ -10,7 +10,6 @@ export default function AdminDashboard() {
     const auth = useAuth();
 
     const { user, loading } = useAuth();
-    console.log(user, loading);
 
     if (!loading && !user) {
         router.push('/admin/login');
