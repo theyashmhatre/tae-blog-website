@@ -17,9 +17,11 @@ export default function Description() {
     }
 
     function onBlur(e) {
-        const desciption = Object.values(descValue)[0];
-        blocks[0].blogDescription = desciption;
-        localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+        const description = Object.values(descValue)[0];
+        blocks[0].blogDescription = description;
+        if (description) {
+            localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+        }
     }
 
     return (

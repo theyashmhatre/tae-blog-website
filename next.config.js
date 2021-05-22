@@ -9,9 +9,15 @@ module.exports = {
         STORAGEBUCKET: process.env.STORAGEBUCKET,
         MESSAGINGSENDERID: process.env.MESSAGINGSENDERID,
         APPID: process.env.APPID,
-        MEASUREMENTID: process.env.MEASUREMENTID
+        MEASUREMENTID: process.env.MEASUREMENTID,
+        DATABASEURL: process.env.DATABASEURL,
+        CLIENTEMAIL: process.env.CLIENTEMAIL,
+        PRIVATEKEY: process.env.PRIVATEKEY,
     },
     images: {
         domains: ['firebasestorage.googleapis.com'],
+    },
+    future: {
+        webpack5: true,
     },
 };

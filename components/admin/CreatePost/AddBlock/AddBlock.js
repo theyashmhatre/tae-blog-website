@@ -18,11 +18,13 @@ const Components = {
     video:VideoBlock,
 };
 
-export default function AddBlock(block) {
+export default function AddBlock(block, index, array) {
     if (typeof Components[block.component] !== "undefined") {
         return React.createElement(Components[block.component], {
             key: block._uid,
-            block: block
+            block: block,
+            index: index,
+            array: array
         });
     }
     uniqueID = uniqid()

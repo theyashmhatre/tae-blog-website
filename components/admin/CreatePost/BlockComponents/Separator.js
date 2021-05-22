@@ -11,6 +11,7 @@ export default function Separator(props) {
             {/* Close Button */}
             <RemoveComponent
                 uid={props.block._uid}
+                index={props.index}
             />
             <Divider orientation="horizontal" />
         </div>
