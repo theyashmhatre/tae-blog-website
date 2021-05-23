@@ -91,7 +91,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const postsDirectory = path.join(process.cwd(), 'pages');
+    const postsDirectory = path.join(process.cwd(), '/');
     const filenames = fs.readdir(postsDirectory, (err, data) => {
         if (err) console.log(err);
         console.log(data)
