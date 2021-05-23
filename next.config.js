@@ -1,7 +1,7 @@
 //our variables flow from .env.local over next.config.js to the client bundle
 
 module.exports = {
-    distDir: "_next",
+    // distDir: "_next",
     generateBuildId: async () => {
         if (process.env.BUILD_ID) {
             return process.env.BUILD_ID;
