@@ -2,7 +2,8 @@ import { db } from "../../../config/config"
 
 export default (req, res) => {
 
-    const { blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt } = req.body;
+    const { blogId, blogUID, blocks, blogTitle, blogDescription, coverImageUploaded, uploadedAt, userUID, postedBy } = req.body;
+    const clearDraftQuery = db.collection('drafts').doc(blogUID);
 
     let errors = [];
 
@@ -15,11 +16,13 @@ export default (req, res) => {
     if (errors.length !== 0) return res.status(400).json({ errors: errors });
 
     const newBlog = {
+        blogId : blogId,
         blocks: blocks,
         uploadedAt: uploadedAt,
         likes: 0,
         views: 0,
-        postedBy: "Yash Mhatre"
+        postedBy: postedBy,
+        userUID: userUID,
     };
 
     switch (req.method) {
@@ -28,6 +31,7 @@ export default (req, res) => {
                 db.collection("blogs")
                     .add(newBlog)
                     .then((doc) => {
+                        clearDraftQuery.delete();
                         res.statusCode = 201;
                         res.end(JSON.stringify({
                             success: true,

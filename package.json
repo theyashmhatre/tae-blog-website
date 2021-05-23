@@ -9,18 +9,22 @@
     "export": "next export"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.1.0",
-    "@emotion/react": "^11.1.4",
-    "@emotion/styled": "^11.0.0",
+    "@chakra-ui/react": "^1.6.1",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
     "axios": "^0.21.1",
     "command-line-args": "^4.0.7",
     "disable-scroll": "^0.6.0",
-    "firebase": "^8.2.1",
-    "framer-motion": "^3.1.1",
-    "next": "10.0.4",
+    "firebase": "^8.6.1",
+    "firebase-admin": "^9.8.0",
+    "framer-motion": "^3.10.6",
+    "fs": "^0.0.1-security",
+    "gray-matter": "^4.0.3",
+    "next": "^10.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-icons": "^4.1.0",
-    "uniqid": "^5.2.0"
+    "react-icons": "^4.2.0",
+    "uniqid": "^5.3.0",
+    "xhr2": "^0.2.1"
   }
 }

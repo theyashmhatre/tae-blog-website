@@ -4,10 +4,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import BlogCard from '../components/user/BlogCard'
+import Footer from '../components/user/Layout/Footer/Footer'
 import Header from '../components/user/Layout/Header'
-import { db } from "../config/config"
+import { db } from "../config/config";
 
-export default function Blogs({ blogs }) {
+
+export default function Blogs({blogs}) {
+
     return (
         <div>
             <Head>
@@ -30,18 +33,37 @@ export default function Blogs({ blogs }) {
                     </div>
                 })}
             </Stack>
+            <Footer />
         </div>
     )
 }
 
 export async function getStaticProps(context) {
-    const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://the-adventurous-engineer.vercel.app"; 
-    const blogsList = await axios.get(host+"/api/client/blog/getAllBlogs");
+    let blogsList = [];
+    await db.collection("blogs")
+        .orderBy("uploadedAt", "desc")
+        .get()
+        .then((data) => {
+            data.forEach((doc) => {
+                blogsList.push({
+                    blogId: doc.id,
+                    blocks: doc.data().blocks,
+                    likes: doc.data().likes,
+                    postedBy: doc.data().postedBy,
+                    uploadedAt: doc.data().uploadedAt,
+                    views: doc.data().views
+                });
+            });
+        })
+        .catch((err) => {
+            console.error("Err", err);
+        });
 
-    let blogs = JSON.parse(JSON.stringify(blogsList.data));
+    let blogs = JSON.parse(JSON.stringify(blogsList));
     return {
         props: {
             blogs,
         },
+        revalidate: 10,
     }
 }

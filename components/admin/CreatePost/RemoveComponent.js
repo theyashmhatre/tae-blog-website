@@ -1,7 +1,9 @@
-import { IconButton, useColorModeValue } from '@chakra-ui/react';
+import { HStack, IconButton, Spacer, useColorModeValue } from '@chakra-ui/react';
 import React, { useContext } from 'react'
 import { RiCloseCircleFill } from 'react-icons/ri';
 import BlockContext from '../../../context/BlockContext';
+import { CgArrowUpO, CgArrowDownO } from "react-icons/cg";
+import { swapElement } from "./BlockComponents/utils/utils";
 
 export default function RemoveComponent(props) {
     const { blocks, setBlocks } = useContext(BlockContext);
@@ -20,9 +22,13 @@ export default function RemoveComponent(props) {
     return (
         <div>
             {/* Close Button */}
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+            <HStack>
+                <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
+                <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
+                <Spacer />
                 <IconButton onClick={removeBlock} aria-label="Remove Block" bgColor={closeButtonValue} icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
-            </div>
+            </HStack>
+
 
         </div>
     )

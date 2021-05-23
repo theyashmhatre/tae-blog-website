@@ -5,6 +5,7 @@ import data from "../components/admin/CreatePost/AddBlock/objects/data"
 import { useState } from 'react';
 import { extendTheme } from "@chakra-ui/react"
 import { Fonts } from "../public/fonts/fonts"
+import {AuthProvider} from "../lib/auth";
 
 const theme = extendTheme({
   fonts: {
@@ -17,11 +18,13 @@ function MyApp({ Component, pageProps }) {
   const [blocks, setBlocks] = useState(data.content.body); // this will be provided to all the child components. setBlocks will help update the blocks in it
 
   return (
-    <BlockContext.Provider value={{ blocks, setBlocks }}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </BlockContext.Provider>
+    <ChakraProvider theme={theme}>
+      <AuthProvider>
+        <BlockContext.Provider value={{ blocks, setBlocks }}>
+          <Component {...pageProps} />
+        </BlockContext.Provider>
+      </AuthProvider>
+    </ChakraProvider>
   )
 }
 
