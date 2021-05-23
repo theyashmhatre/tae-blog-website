@@ -91,12 +91,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    // const postsDirectory = path.join(process.cwd(), '.next');
-    // const filenames = fs.readdir(postsDirectory, (err, data) => {
-    //     if (err) console.log(err);
-    //     console.log(data)
-    // });
-    // console.log("filenames",filenames);
+    const postsDirectory = path.join(process.cwd(), 'pages');
+    const filenames = fs.readdir(postsDirectory, (err, data) => {
+        if (err) console.log(err);
+        console.log(data)
+    });
+    console.log("filenames",filenames);
 
     // const posts = filenames.map(async (filename) => {
     //     const filePath = path.join(postsDirectory, filename);
