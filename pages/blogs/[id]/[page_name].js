@@ -85,13 +85,13 @@ export async function getStaticPaths() {
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
-    return { paths: paths, fallback: true }
+    return { paths: paths, fallback: 'blocking' }
 }
 
 
 export async function getStaticProps({ params }) {
 
-    // const postsDirectory = path.join(process.cwd(), 'config');
+    // const postsDirectory = path.join(process.cwd(), '.next');
     // const filenames = fs.readdir(postsDirectory, (err, data) => {
     //     if (err) console.log(err);
     //     console.log(data)

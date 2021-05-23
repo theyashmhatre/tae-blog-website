@@ -14,7 +14,7 @@ export default function BlogCard({blog}) {
                 <div >
                     <Image height={["300px","400px"]} width="100%" className={styles.bgImage} src= {blog.blocks[0].coverImageUrl}/>
                     
-                    <Link href={`/blogs?id=${blog.blogId}?page_name=${encodeURIComponent(blogName)}`} as={"/blogs/" + `${blog.blogId}/${encodeURIComponent(blogName)}/`}>
+                    <Link href={"/blogs/[id]/[page_name]/"} as={"/blogs/" + `${blog.blogId}/${encodeURIComponent(blogName)}/`}>
                         <Box className={styles.bgText} w={["90%","85%","80%"]}>
                             <Heading fontSize={["20px","30px","40px","40px"]}>{blocks[0].value}</Heading>
                             <HStack paddingTop="10px">
