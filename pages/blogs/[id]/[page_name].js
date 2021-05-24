@@ -11,6 +11,7 @@ import Footer from '../../../components/user/Layout/Footer/Footer';
 import BlogTags from '../../../components/user/SingleBlogComponents/BlogTags';
 import AddComment from '../../../components/user/SingleBlogComponents/AddComment';
 import Comments from '../../../components/user/SingleBlogComponents/Comments';
+import firebase from "firebase/app";
 
 
 
