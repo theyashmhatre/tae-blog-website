@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import React from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -85,33 +83,11 @@ export async function getStaticPaths() {
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
-    return { paths: paths, fallback: 'blocking' }
+    return { paths: paths, fallback: true }
 }
 
 
 export async function getStaticProps({ params }) {
-
-    const postsDirectory = path.join(process.cwd(), '.next');
-    const filenames = fs.readdir(postsDirectory, (err, data) => {
-        if (err) console.log(err);
-        console.log(data)
-    });
-    console.log("filenames",filenames);
-
-    // const posts = filenames.map(async (filename) => {
-    //     const filePath = path.join(postsDirectory, filename);
-    //     const fileContents = await fs.readFile(filePath, 'utf8');
-
-    //     // Generally you would parse/transform the contents
-    //     // For example you can transform markdown to HTML here
-
-    //     return {
-    //         filename,
-    //         content: fileContents,
-    //     };
-    // });
-
-    // console.log("posts",posts);
 
     let blogData = [];
     let id = params.id;
@@ -126,17 +102,17 @@ export async function getStaticProps({ params }) {
             blogData = doc.data();
 
         })
-        // .then(()=>{
+        .then(()=>{
 
-        //     //updates views count by 1 everytime a single post is viewed
-        //     var blogRef = db.doc(`/blogs/${params.id}`);
-        //     blogRef.update({
-        //         views: firebase.firestore.FieldValue.increment(1),
-        //     });
+            //updates views count by 1 everytime a single post is viewed
+            var blogRef = db.doc(`/blogs/${params.id}`);
+            blogRef.update({
+                views: firebase.firestore.FieldValue.increment(1),
+            });
 
-        // })
+        })
         .catch((err) => {
-            console.error("[page_name] getStaticProps err:", err);
+            console.error("page_name getStaticProps err:", err);
         });
 
     let blog = JSON.parse(JSON.stringify(blogData));
