@@ -53,42 +53,42 @@ export default function SinglePost({ blog, id }) {
     )
 }
 
-export async function getStaticPaths() {
-    let blogsList = [];
-    await db.collection("blogs")
-        .orderBy("uploadedAt", "desc")
-        .get()
-        .then((data) => {
-            data.forEach((doc) => {
-                blogsList.push({
-                    blogId: doc.id,
-                    blocks: doc.data().blocks,
-                    likes: doc.data().likes,
-                    postedBy: doc.data().postedBy,
-                    uploadedAt: doc.data().uploadedAt,
-                    views: doc.data().views
-                });
-            });
-        })
-        .catch((err) => {
-            console.error("Err", err);
-        });
+// export async function getStaticPaths() {
+//     let blogsList = [];
+//     await db.collection("blogs")
+//         .orderBy("uploadedAt", "desc")
+//         .get()
+//         .then((data) => {
+//             data.forEach((doc) => {
+//                 blogsList.push({
+//                     blogId: doc.id,
+//                     blocks: doc.data().blocks,
+//                     likes: doc.data().likes,
+//                     postedBy: doc.data().postedBy,
+//                     uploadedAt: doc.data().uploadedAt,
+//                     views: doc.data().views
+//                 });
+//             });
+//         })
+//         .catch((err) => {
+//             console.error("Err", err);
+//         });
 
-    let blogs = JSON.parse(JSON.stringify(blogsList));
-
-
-    // Get the paths we want to pre-render based on posts
-    const paths = blogs.map((blog) => ({
-        params: { id: blog.blogId, page_name: encodeURIComponent(blog.blocks[0].value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')) },
-    }))
-
-    // We'll pre-render only these paths at build time.
-    // { fallback: false } means other routes should 404.
-    return { paths: paths, fallback: true }
-}
+//     let blogs = JSON.parse(JSON.stringify(blogsList));
 
 
-export async function getStaticProps({ params }) {
+//     // Get the paths we want to pre-render based on posts
+//     const paths = blogs.map((blog) => ({
+//         params: { id: blog.blogId, page_name: encodeURIComponent(blog.blocks[0].value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')) },
+//     }))
+
+//     // We'll pre-render only these paths at build time.
+//     // { fallback: false } means other routes should 404.
+//     return { paths: paths, fallback: true }
+// }
+
+
+export async function getServerSideProps({ params }) {
 
     let blogData = [];
     let id = params.id;
@@ -127,6 +127,5 @@ export async function getStaticProps({ params }) {
             blog,
             id
         },
-        revalidate: 10,
     }
 }
