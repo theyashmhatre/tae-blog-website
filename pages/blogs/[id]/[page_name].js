@@ -53,6 +53,9 @@ export default function SinglePost({ blog, id }) {
     )
 }
 
+
+//getStaticPaths and getStaticProps couldn't work due to a bug which didn't refresh the new blog page, so instead using getServerSideProps
+
 // export async function getStaticPaths() {
 //     let blogsList = [];
 //     await db.collection("blogs")

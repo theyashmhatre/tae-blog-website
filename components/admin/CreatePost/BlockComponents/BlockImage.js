@@ -150,7 +150,7 @@ export default function BlockImage(props) {
     }
 
     return (
-        <div>
+        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
             {/* CLose Button */}
             <div style={{marginBottom:"10px"}}>
                 <HStack>
@@ -182,7 +182,7 @@ export default function BlockImage(props) {
                                     <AiOutlineCloudUpload size="25px" style={{marginRight:"10px"}} />
                                     Select an Image
                                 </label>
-                                    <input id={props.block._uid} type='file' style={{ display: "none" }} onChange={handleChange}  />
+                                <input id={props.block._uid} type='file' style={{ display: "none" }} onChange={handleChange} accept="image/jpeg, image/jpg, image/png, image/gif, image/tiff, image/webp, image/svg"  />
                             </div>
                         </Box>
                     </>
@@ -210,6 +210,6 @@ export default function BlockImage(props) {
             {/* Progress Bar Hides once it reaches 100 or if the image is already uploaded */}
             {progress === 100 || props.block.imageUploaded || !image.visible ? <></> : <Progress value={progress} />}
 
-        </div>
+        </Box>
     );
 }

@@ -6,7 +6,6 @@ import CoverImage from './CoverImage';
 import BlockContext from '../../../../context/BlockContext';
 import Axios from 'axios';
 import data from "../AddBlock/objects/data"
-import disableScroll from 'disable-scroll';
 import Description from './Description';
 import {useAuth} from "../../../../lib/auth";
 
@@ -20,7 +19,28 @@ export default function RightDrawer() {
 
     const auth = useAuth();
 
-    // const { user, loading } = useAuth();
+    const { user, loading } = useAuth();
+
+
+    function checkMediaUploadStatus() {
+        let filesUploaded = true;
+        blocks.some(function (block) {
+            if (block.imageUploaded === false || block.videoUploaded === false || block.coverImageUploaded === false) {
+                toast({
+                    title: 'Some images/videos are not uploaded.',
+                    description: "Please upload or remove them and try again!",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'bottom-right'
+                });
+                filesUploaded = false;
+                return true;
+            }
+        });
+
+        return filesUploaded;
+    }
 
 
     async function uploadBlogPost() {
@@ -35,26 +55,12 @@ export default function RightDrawer() {
             blogDescription: blocks[0].blogDescription,
             coverImageUploaded : blocks[0].coverImageUploaded,
             uploadedAt : date,
-            userUID: "user.uid",
-            postedBy: "user.name",
+            userUID: user.uid,
+            postedBy: user.name,
         };
 
-        let allFilesUploaded = true;
 
-        blocks.some(function(block)  {
-            if (block.imageUploaded === false || block.videoUploaded === false || block.coverImageUploaded === false){
-                toast({
-                        title: 'Some images/videos are not uploaded.',
-                        description: "Please upload or remove them and try again!",
-                        status: "error",
-                        duration: 5000,
-                        isClosable: true,
-                        position: 'bottom-right'
-                    });
-                allFilesUploaded = false;
-                return true;
-            }
-        });
+        let allFilesUploaded = checkMediaUploadStatus();
         
        if (allFilesUploaded) {
            await Axios.post("/api/admin/submit-post/", completeBlockObject)
@@ -108,47 +114,52 @@ export default function RightDrawer() {
             postedBy: user.name,
         };
 
-        await Axios.post("/api/admin/upload-draft/", completeBlockObject)
-            .then((res) => {
-                toast({
-                    title: "Draft saved successfully!",
-                    description: "Can't wait to see the completed version😋",
-                    status: "success",
-                    duration: 7000,
-                    isClosable: true,
-                    position: 'bottom-right'
-                });
-            }).then(() => {
-                onClose();
-            }).catch((err) => {
 
-                //receives a list of error from the api
-                const errors = err.response.data.errors;
+        let allFilesUploaded = checkMediaUploadStatus();
 
-                //maps the error list into error toasts
-                if (errors) {
-                    errors.map((error) => {
-                        toast({
-                            title: error,
-                            status: "error",
-                            duration: 5000,
-                            isClosable: true,
-                            position: 'bottom-right'
-                        });
+        if (allFilesUploaded) {
+            await Axios.post("/api/admin/upload-draft/", completeBlockObject)
+                .then((res) => {
+                    toast({
+                        title: "Draft saved successfully!",
+                        description: "Can't wait to see the completed version😋",
+                        status: "success",
+                        duration: 7000,
+                        isClosable: true,
+                        position: 'bottom-right'
                     });
-                }
-            });
+                }).then(() => {
+                    onClose();
+                }).catch((err) => {
+
+                    //receives a list of error from the api
+                    const errors = err.response.data.errors;
+
+                    //maps the error list into error toasts
+                    if (errors) {
+                        errors.map((error) => {
+                            toast({
+                                title: error,
+                                status: "error",
+                                duration: 5000,
+                                isClosable: true,
+                                position: 'bottom-right'
+                            });
+                        });
+                    }
+                });
+        }
     }
 
     return (
         <div>
-            <Button refs={btnRef} colorScheme="teal" onClick={()=>{onOpen();disableScroll.on()}}>
+            <Button refs={btnRef} colorScheme="teal" onClick={()=>{onOpen()}}>
                 Publish
             </Button>
             <Drawer
                 isOpen={isOpen}
                 placement="right"
-                onClose={() => { onClose();disableScroll.off()}}
+                onClose={() => { onClose()}}
                 finalFocusRef={btnRef}
             >
                 <DrawerOverlay>

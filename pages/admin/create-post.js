@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Head from "next/head"
-import { Heading, Stack, StackDivider, Flex, Spacer, Button, Text } from "@chakra-ui/react" 
+import { Heading, Stack, StackDivider, Flex, Spacer, Button, Text, Box } from "@chakra-ui/react" 
 import ModalShow from "../../components/admin/CreatePost/AddBlock/ModalShow"
 import Components from "../../components/admin/CreatePost/AddBlock/AddBlock"
 import BlockContext from "../../context/BlockContext"
@@ -12,17 +12,18 @@ import styles from "../../styles/CreatePost.module.css"
 import StickyFooter from '../../components/admin/CreatePost/Footer/StickyFooter'
 import {useAuth} from "../../lib/auth";
 import { useRouter } from 'next/router'
+import PreviewButton from '../../components/admin/CreatePost/Preview Mode/PreviewButton'
 
 export default function CreatePost() {
 
     const {blocks, setBlocks} = useContext(BlockContext);
     const router = useRouter();
 
-    // const { user, loading } = useAuth();
+    const { user, loading } = useAuth();
 
-    // if (!loading && !user) {
-    //     router.push('/admin/login');
-    // }
+    if (!loading && !user) {
+        router.push('/admin/login');
+    }
 
     useEffect(() => {
             //it sets the localstorage as default blockList if it is empty
@@ -54,9 +55,12 @@ export default function CreatePost() {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
             </Head>
 
-            <Heading fontFamily="Raleway" fontSize={["25px", "30px", "40px"]} textAlign="center" border="1px solid black" color="white" bgColor="gray.900" padding="10px 0px">
-                Create Post
-            </Heading>
+            <Box>
+                <Heading fontFamily="Raleway" fontSize={["25px", "30px", "40px"]} textAlign="center" border="1px solid black" color="white" bgColor="gray.900" padding="10px 0px">
+                    Create Post
+                <PreviewButton />
+                </Heading>
+            </Box>
 
             <div>
                 <Stack spacing={8} w={["90%", "80%", "70%", "800px"]} style={{ margin: "auto" }}>

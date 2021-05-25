@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Heading, Textarea, IconButton } from "@chakra-ui/react"
+import { Heading, Textarea, IconButton, Box } from "@chakra-ui/react"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import BlockContext from "../../../../context/BlockContext"
 import { AiOutlineClose } from 'react-icons/ai';
@@ -31,7 +31,7 @@ export default function BlockPara(props) {
     }
 
     return (
-        <>
+        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
             {/* Close Button */}
             <RemoveComponent
                 uid={props.block._uid}
@@ -42,7 +42,6 @@ export default function BlockPara(props) {
             <div>
                 <Textarea
                     placeholder="Start writing..."
-                    marginTop="-30px"
                     size="sm"
                     resize="vertical"
                     onBlur={onBlur}
@@ -50,6 +49,6 @@ export default function BlockPara(props) {
                     defaultValue={props.block.value}
                 />
             </div>
-        </>
+        </Box>
     )
 }

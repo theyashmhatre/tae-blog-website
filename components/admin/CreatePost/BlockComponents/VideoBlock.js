@@ -68,7 +68,6 @@ export default function VideoBlock(props) {
     //uploads the image on firebase in the directory images/ after the user clicks on upload
     const handleUpload = async e => {
         e.preventDefault();
-        console.log(video);
 
         if (!video.raw) {  // if user hasn't loaded any input image, it'll display an error toast
             toast({
@@ -161,7 +160,7 @@ export default function VideoBlock(props) {
 
 
     return (
-        <div>
+        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
             {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
             {/* CLose Button */}
             <div style={{ marginBottom: "10px" }}>
@@ -187,8 +186,8 @@ export default function VideoBlock(props) {
                             <label htmlFor={props.block._uid} className={styles.label}>
                                 <AiOutlineCloudUpload size="25px" style={{ marginRight: "10px" }} />
                                     Select a Video
-                                </label>
-                            <input id={props.block._uid} type='file' style={{ display: "none" }} onChange={handleChange} />
+                                </label>    
+                                <input id={props.block._uid} type='file' style={{ display: "none" }} onChange={handleChange} accept="video/mp4, video/gif, video/mkv, video/webm, video/ogg" />
                         </div>
                     </Box>
                 </label> : <iframe
@@ -225,6 +224,6 @@ export default function VideoBlock(props) {
             </div>
 
             {showProgressBar ? <Progress value={progress} /> : <></>}
-        </div>
+        </Box>
     )
 }

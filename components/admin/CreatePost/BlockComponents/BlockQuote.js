@@ -1,4 +1,4 @@
-import { IconButton, Input } from '@chakra-ui/react';
+import { Box, IconButton, Input } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react'
 import BlockContext from "../../../../context/BlockContext"
 import RemoveComponent from '../RemoveComponent';
@@ -19,14 +19,14 @@ export default function BlockQuote(props) {
 
 
     return (
-        <div>
+        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
             {/* Close Button */}
             <RemoveComponent
                 uid={props.block._uid}
                 index={props.index}
             />
 
-            <Input variant="filled" placeholder="Write quote..." onChange={(e) => {handleChange(e, quoteValue, setQuoteValue)}} defaultValue={props.block.value} onBlur={onBlur} />
-        </div>
+            <Input variant="filled" placeholder="Write quote..." color="white" backgroundColor="#3F3F3F" onChange={(e) => {handleChange(e, quoteValue, setQuoteValue)}} defaultValue={props.block.value} onBlur={onBlur} />
+        </Box>
     )
 }

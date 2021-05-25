@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Heading, IconButton, Input } from "@chakra-ui/react"
+import { Box, Heading, IconButton, Input } from "@chakra-ui/react"
 import BlockContext from "../../../../context/BlockContext"
 import RemoveComponent from '../RemoveComponent';
 import {handleChange} from "./utils/utils";
@@ -28,7 +28,7 @@ export default function BlockHeading(props) {
     }
 
     return (
-        <div>
+        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
         
             {/* Close Button */}
             <RemoveComponent
@@ -45,6 +45,6 @@ export default function BlockHeading(props) {
                 onChange={(e) => {handleChange(e, headValue, setHeadValue)}}
                 defaultValue={props.block.value}  //after a page refresh, the input will have the previous value inside it
             />
-        </div>
+        </Box>
     )
 }

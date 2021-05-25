@@ -6,7 +6,7 @@ export default (req, res) => {
 
     let errors = [];
 
-    if (blogTitle.length < 10) errors.push("Blog Title must be atleast 10 characters long");
+    if (!blogTitle || blogTitle.length < 10) errors.push("Blog Title must be atleast 10 characters long");
 
     if (!blogDescription) errors.push("Description must be 10 to 250 characters long");
 

@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.3.0",
     "axios": "^0.21.1",
     "command-line-args": "^4.0.7",
-    "disable-scroll": "^0.6.0",
     "firebase": "^8.6.1",
     "firebase-admin": "^9.8.0",
     "framer-motion": "^3.10.6",

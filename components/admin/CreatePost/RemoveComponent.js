@@ -1,9 +1,10 @@
-import { HStack, IconButton, Spacer, useColorModeValue } from '@chakra-ui/react';
+import { Button, HStack, Icon, IconButton, Spacer, useColorModeValue } from '@chakra-ui/react';
 import React, { useContext } from 'react'
 import { RiCloseCircleFill } from 'react-icons/ri';
 import BlockContext from '../../../context/BlockContext';
 import { CgArrowUpO, CgArrowDownO } from "react-icons/cg";
 import { swapElement } from "./BlockComponents/utils/utils";
+import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 export default function RemoveComponent(props) {
     const { blocks, setBlocks } = useContext(BlockContext);
@@ -22,11 +23,11 @@ export default function RemoveComponent(props) {
     return (
         <div>
             {/* Close Button */}
-            <HStack>
-                <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
-                <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
+            <HStack marginBottom="10px">
+                <Icon color={props.index > 1 ? "white": "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
+                <Icon color={blocks.length > props.index + 1 ? "white" : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
                 <Spacer />
-                <IconButton onClick={removeBlock} aria-label="Remove Block" bgColor={closeButtonValue} icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
+                <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
             </HStack>
 
 
