@@ -24,8 +24,8 @@ export default function RemoveComponent(props) {
         <div>
             {/* Close Button */}
             <HStack marginBottom="10px">
-                <Icon color={props.index > 1 ? "white": "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
-                <Icon color={blocks.length > props.index + 1 ? "white" : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
+                <Icon color={props.index > 1 ? useColorModeValue("#1A202C","white"): "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
+                <Icon color={blocks.length > props.index + 1 ? useColorModeValue("#1A202C", "white") : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
                 <Spacer />
                 <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
             </HStack>

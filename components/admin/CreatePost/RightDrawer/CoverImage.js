@@ -7,6 +7,7 @@ import { RiCloseCircleFill } from 'react-icons/ri';
 import {hasExtension} from "../BlockComponents/utils/utils";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import styles from "../BlockComponents/styles/BlockImage.module.css";
+import uniqid from "uniqid";
 
 export default function CoverImage() {
     const { blocks, setBlocks } = useContext(BlockContext);
