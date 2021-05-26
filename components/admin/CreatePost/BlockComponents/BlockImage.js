@@ -24,7 +24,7 @@ export default function BlockImage(props) {
     const { blocks, setBlocks } = useContext(BlockContext);
 
     const closeButtonValue = useColorModeValue("white", "#1A202C");
-    const closeIconValue = useColorModeValue("#1A202C", "white");
+    const iconValue = useColorModeValue("#1A202C", "white");
 
     //executes once the file is selected or changed.
     const handleChange = e => {
@@ -155,8 +155,8 @@ export default function BlockImage(props) {
             {/* CLose Button */}
             <div style={{marginBottom:"10px"}}>
                 <HStack>
-                    <Icon color={props.index > 1 ? "white" : "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
-                    <Icon color={blocks.length > props.index + 1 ? "white" : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
+                    <Icon color={props.index > 1 ? iconValue : "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
+                    <Icon color={blocks.length > props.index + 1 ? iconValue : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
                     <Spacer />
                     {progress === 100 || props.block.imageUploaded ?
                         <></> :
@@ -164,7 +164,7 @@ export default function BlockImage(props) {
                             <Button disabled={image.visible ? false : true} leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
                         </div>
                     }
-                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={iconValue} />
                 </HStack>
             </div>
 
