@@ -40,7 +40,7 @@ export default function PreviewButton() {
                 </Button>
                 :
                 <Tooltip label="Save this blog as a draft to enable preview" aria-label="A tooltip">
-                    <Button color={useColorModeValue("gray.200", "gray.500")} colorScheme="whiteAlpha" cursor="not-allowed" position="absolute" right="3" marginRight="20px" marginTop="4px">Preview</Button>
+                    <Button size={["xs", "sm", "md", "lg"]} fontSize={["12px", "13px", "15px", "18px"]} padding="9px" color={useColorModeValue("gray.200", "gray.500")} colorScheme="whiteAlpha" cursor="not-allowed" position="absolute" right={["1", "2", "3"]} marginRight={["5px", "10px", "20px"]} marginTop={["2px", "4px"]}>Preview</Button>
                 </Tooltip>
 
             }

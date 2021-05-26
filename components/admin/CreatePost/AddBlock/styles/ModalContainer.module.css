@@ -3,10 +3,10 @@
 
 }
 
-.box:hover{
-    border: 1px solid blue;
+/* .box:hover{
+    background-color: gainsboro;
     border-radius: 5px;
-}
+} */
 
 .icon{
     display: flex;

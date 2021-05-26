@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Button, Center, Container, Editable, EditableInput, EditablePreview, HStack, IconButton, Progress, Spacer, useColorModeValue, useToast } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Center, Container, Editable, EditableInput, EditablePreview, HStack, Icon, IconButton, Progress, Spacer, useColorModeValue, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { RiCloseCircleFill } from 'react-icons/ri';
@@ -160,21 +160,21 @@ export default function VideoBlock(props) {
 
 
     return (
-        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
+        <Box borderRadius="5px" backgroundColor={useColorModeValue("#FFFFFF", "blackAlpha.500")} border={useColorModeValue("1px solid lightblue", "0px")} padding="20px">
             {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
             {/* CLose Button */}
             <div style={{ marginBottom: "10px" }}>
                 <HStack>
-                    <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
-                    <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
+                    <Icon color={props.index > 1 ? "white" : "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
+                    <Icon color={blocks.length > props.index + 1 ? "white" : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
                     <Spacer />
                     {progress === 100 || props.block.videoUploaded ?
                         <></> :
                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
-                            <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
+                            <Button disabled={video.visible ? false : true} leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
                         </div>
                     }
-                    <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
                 </HStack>
             </div>
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Heading, Textarea, IconButton, Box } from "@chakra-ui/react"
+import { Heading, Textarea, IconButton, Box, useColorModeValue } from "@chakra-ui/react"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import BlockContext from "../../../../context/BlockContext"
 import { AiOutlineClose } from 'react-icons/ai';
@@ -31,7 +31,7 @@ export default function BlockPara(props) {
     }
 
     return (
-        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
+        <Box borderRadius="5px" backgroundColor={useColorModeValue("#FFFFFF", "blackAlpha.500")} border={useColorModeValue("1px solid lightblue", "0px")} padding="20px">
             {/* Close Button */}
             <RemoveComponent
                 uid={props.block._uid}
@@ -45,6 +45,10 @@ export default function BlockPara(props) {
                     size="sm"
                     resize="vertical"
                     onBlur={onBlur}
+                    backgroundColor={useColorModeValue("#F5F5F5","#3F3F3F")}
+                    color={useColorModeValue("black","white")}
+                    borderRadius="5px"
+                    border="0px solid black"
                     onChange={(e) => { handleChange(e, paraValue, setParaValue) }}
                     defaultValue={props.block.value}
                 />

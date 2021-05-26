@@ -1,38 +1,56 @@
-import React, { useContext, useState } from 'react'
-import { Text, Textarea } from "@chakra-ui/react"
+import React, { useContext, useEffect, useState } from 'react'
+import { Heading, Input, Tag, TagLabel, TagRightIcon, Text, Textarea } from "@chakra-ui/react"
 import BlockContext from '../../../../context/BlockContext';
+import styles from "./styles/Tags.module.css";
+import { RiCloseCircleFill } from 'react-icons/ri';
 
 export default function Tags() {
-
-    let [tagValue, setTagValue] = useState('');
     const { blocks, setBlocks } = useContext(BlockContext);
 
-    const defaultValue = blocks[0].tags ? blocks[0].tags.join(";") : '';
+    let [tagValue, setTagValue] = useState('');
+    const [tags, setTags] = useState(blocks[0].tags);
 
-    function handleChange(event) {
-        const value = event.target.value;
-        setTagValue({
-            ...tagValue,
-            [event.target.name]: value
-        });
-    }
-
-    function onBlur(e) {
-        const tags = Object.values(tagValue)[0];
-        const tagList = tags.split(";"); //splits the string into list of tags
-        blocks[0].tags = tagList;
+    useEffect(() => {
+        blocks[0].tags = tags;
         localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
-    }
+    }, [tags]);
+
+    const removeTags = indexToRemove => {
+        setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+        blocks[0].tags = tags;
+        setBlocks(blocks);
+        localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage
+    };
+    
+    const addTags = event => {
+        const value = event.target.value;
+
+        if (value !== "") {
+            setTags(prevTags => [...prevTags, value]);
+            event.target.value = "";
+        }
+    };
+
 
     return (
-        <div>
-            <Text mb="8px">Tags:</Text>
-            <Textarea
-                onChange={handleChange}
-                placeholder="Separate each tag with a semicolon(;)"
-                size="sm"
-                onBlur={onBlur}
-                defaultValue={defaultValue}
+        <div className={styles.tag_input}>
+            <Text fontWeight="bold" letterSpacing="1px" marginBottom="5px">Tags:</Text>
+            <ul id={styles.tags}>
+                {tags && tags.map((tag, index) => (
+
+                    <Tag size="md" key={index} variant="subtle" colorScheme="cyan" marginRight="5px" marginBottom="5px">
+                        <TagLabel>{tag}</TagLabel>
+                        <TagRightIcon boxSize="12px" as={RiCloseCircleFill} cursor="pointer" onClick={() => removeTags(index)} />
+                    </Tag>
+                ))}
+            </ul>
+            <Input
+                type="text"
+                display="flex"
+                outline="transparent"
+                onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
+                placeholder="Press enter to add tags"
+                marginBottom="20px"
             />
         </div>
     )

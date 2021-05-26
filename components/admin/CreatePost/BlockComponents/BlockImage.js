@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Button, Heading, Progress, Image, Box, Center, Container, IconButton, Text, useColorModeValue, HStack, Spacer } from "@chakra-ui/react";
+import { Button, Heading, Progress, Image, Box, Center, Container, IconButton, Text, useColorModeValue, HStack, Spacer, Icon } from "@chakra-ui/react";
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react"
 import { storage } from "../../../../config/config";
 import { useToast } from "@chakra-ui/react"
@@ -16,7 +16,7 @@ import uniqid from "uniqid";
 
 //This component will be dynamically added to the CreatePost Stack when Image is clicked in the Modal
 export default function BlockImage(props) {
-    const [image, setImage] = useState({ preview: "", raw: "" });
+    const [image, setImage] = useState({ preview: "", raw: "", visible: false });
     const [desc, setDesc] = useState('');
     const [progress, setProgress] = useState(0);  //keeps track of progress of image upload
     const [Url, setUrl] = useState('');  //url that is generated after upload successfull on firebase
@@ -32,7 +32,8 @@ export default function BlockImage(props) {
             if (hasExtension(props.block._uid, ['.jpeg', '.jpg', '.png', '.gif', '.tiff', '.webp', '.svg'])) {
                 setImage({
                     preview: URL.createObjectURL(e.target.files[0]), //Offline preview url
-                    raw: e.target.files[0]
+                    raw: e.target.files[0],
+                    visible: true,
                 });
             }
             else{
@@ -150,20 +151,20 @@ export default function BlockImage(props) {
     }
 
     return (
-        <Box borderRadius="5px" backgroundColor="blackAlpha.500" padding="20px">
+        <Box borderRadius="5px" backgroundColor={useColorModeValue("#FFFFFF", "blackAlpha.500")} border={useColorModeValue("1px solid lightblue", "0px")} padding="20px">
             {/* CLose Button */}
             <div style={{marginBottom:"10px"}}>
                 <HStack>
-                    <IconButton disabled={props.index > 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "up") }} bgColor={closeButtonValue} aria-label="Move Upward" icon={<CgArrowUpO size="25px" color={closeIconValue} />} />
-                    <IconButton disabled={blocks.length > props.index + 1 ? false : true} onClick={() => { swapElement(props.index, setBlocks, "down") }} bgColor={closeButtonValue} aria-label="Move Downward" icon={<CgArrowDownO size="25px" color={closeIconValue} />} />
+                    <Icon color={props.index > 1 ? "white" : "gray"} as={CgArrowUpO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "up") }}></Icon>
+                    <Icon color={blocks.length > props.index + 1 ? "white" : "gray"} as={CgArrowDownO} w={6} h={6} cursor="pointer" onClick={() => { swapElement(props.index, setBlocks, "down") }}></Icon>
                     <Spacer />
                     {progress === 100 || props.block.imageUploaded ?
                         <></> :
                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
-                            <Button leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
+                            <Button disabled={image.visible ? false : true} leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
                         </div>
                     }
-                    <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
                 </HStack>
             </div>
 
@@ -208,7 +209,7 @@ export default function BlockImage(props) {
 
 
             {/* Progress Bar Hides once it reaches 100 or if the image is already uploaded */}
-            {progress === 100 || props.block.imageUploaded || !image.visible ? <></> : <Progress value={progress} />}
+            {progress === 100 || props.block.imageUploaded || progress === 0 ? <></> : <Progress value={progress} />}
 
         </Box>
     );

@@ -8,7 +8,7 @@ export default function ModalComponent(props) {
     const [hover,setHover] = useState(false);
     const value = useColorModeValue("blue","white");
     const linkStyle = {
-        border: "1px solid " + value,
+        backgroundColor: useColorModeValue("gainsboro", "gray"),
         borderRadius: "5px",
     }
     return (

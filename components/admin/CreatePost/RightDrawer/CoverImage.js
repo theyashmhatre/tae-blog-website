@@ -55,7 +55,9 @@ export default function CoverImage() {
             return null;
         }
 
-        const uploadTask = storage.ref(`${blocks[0]._uid}/cover/${image.raw.name}`).put(image.raw);
+        const uniqueImageId = uniqid(`${image.raw.name}-`);
+
+        const uploadTask = storage.ref(`${blocks[0]._uid}/cover/${uniqueImageId}`).put(image.raw);
         uploadTask.on(
             "state_changed",
             snapshot => {
@@ -71,7 +73,7 @@ export default function CoverImage() {
             () => {
                 storage
                     .ref(blocks[0]._uid + "/cover")
-                    .child(image.raw.name)
+                    .child(uniqueImageId)
                     .getDownloadURL()
                     .then(url => {
                         setUrl(url);
@@ -142,13 +144,22 @@ export default function CoverImage() {
 
     return (
         <div>
-            <Text>
+            <Text fontWeight="bold" letterSpacing="0.5px">
                 Cover Image:
             </Text>
 
             {/* CLose Button */}
             <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginBottom:"10px" }}>
-                <IconButton onClick={removeBlock} bgColor={closeButtonValue} aria-label="Remove Block" icon={<RiCloseCircleFill size="25px" color={closeIconValue} />} />
+                {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
+                {image.uploaded ?
+                    <></> :
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
+                        <Button disabled={image.visible ? false : true} onClick={handleUpload} colorScheme="blue">Upload</Button>
+                    </div>
+                }
+                <Box marginBottom="7px" marginLeft="10px">
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
+                </Box>
             </div>
             <label htmlFor="upload-button">
 
@@ -175,13 +186,7 @@ export default function CoverImage() {
             </label>
             <br />
 
-            {/* hides the Upload button once the upload is complete i.e. Progress reaches 100 or imageUploaded=true */}
-            { image.uploaded ?
-                <></> :
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px" }}>
-                    <Button onClick={handleUpload} colorScheme="blue">Upload</Button>
-                </div>
-            }
+            
 
             {/* Image is shown once the url is successfully updated */}
 

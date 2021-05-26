@@ -26,7 +26,7 @@ export default function Description() {
 
     return (
         <div>
-            <Text mb="8px">Description:</Text>
+            <Text fontWeight="bold" letterSpacing="0.7px" mb="4px">Description:</Text>
             <Textarea
                 onChange={handleChange}
                 placeholder="Write your blog description..."
