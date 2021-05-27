@@ -56,7 +56,6 @@ export default function VideoBlock(props) {
     }
 
     function onBlur(e) {
-        console.log(props);
         props.block.videoDesc = Object.values(desc)[0];
         if (props.block.videoDesc) {
             localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
@@ -174,7 +173,7 @@ export default function VideoBlock(props) {
                             <Button disabled={video.visible ? false : true} leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
                         </div>
                     }
-                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={iconValue} />
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block"  size="25px" color={iconValue} />
                 </HStack>
             </div>
 

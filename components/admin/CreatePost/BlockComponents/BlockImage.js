@@ -46,7 +46,6 @@ export default function BlockImage(props) {
                 });
             }
         }
-        console.log(e, image);
     };
 
     function handleDescChange(editableValue) {
@@ -59,7 +58,6 @@ export default function BlockImage(props) {
 
     function onBlur(e) {
         props.block.imageDesc = Object.values(desc)[0];
-        console.log(props.block.imageDesc);
         if (props.block.imageDesc) {
             localStorage.setItem('componentList', JSON.stringify(blocks)); //saves the updated list in localStorage 
         }
@@ -164,7 +162,7 @@ export default function BlockImage(props) {
                             <Button disabled={image.visible ? false : true} leftIcon={<AiOutlineCloudUpload size="20px" />} onClick={handleUpload} variant="solid" colorScheme="green">Upload</Button>
                         </div>
                     }
-                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={iconValue} />
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" size="25px" color={iconValue} />
                 </HStack>
             </div>
 

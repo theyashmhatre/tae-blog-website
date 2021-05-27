@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -27,6 +27,9 @@ export default function ModalShow() {
     const finalRef = useRef();
     const {blocks,setBlocks} = useContext(BlockContext);
 
+    const [docHeight, setDocHeight] = useState(null);
+
+
     //used to clone the object. if we use normal "=" for making a new object, it would only reference to the original object in BlockObjects.js
     function clone(obj) {
         if (null == obj || "object" != typeof obj) return obj;
@@ -35,6 +38,16 @@ export default function ModalShow() {
             if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
         }
         return copy;
+    }
+
+    useEffect(() => {
+        if (docHeight){
+            window.scrollTo(0, docHeight);
+        }
+    }, [docHeight]);
+
+    function scrollToBottom() {
+        setDocHeight(document.body.scrollHeight);
     }
 
 
@@ -52,6 +65,7 @@ export default function ModalShow() {
             newBlockObject 
         ]);
         onClose();  // closes the Modal
+        scrollToBottom();
     };
 
 

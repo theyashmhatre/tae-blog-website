@@ -19,11 +19,11 @@ export default function CreatePost() {
     const {blocks, setBlocks} = useContext(BlockContext);
     const router = useRouter();
 
-    const { user, loading } = useAuth();
+    // const { user, loading } = useAuth();
 
-    if (!loading && !user) {
-        router.push('/admin/login');
-    }
+    // if (!loading && !user) {
+    //     router.push('/admin/login');
+    // }
 
     useEffect(() => {
             //it sets the localstorage as default blockList if it is empty
@@ -63,7 +63,7 @@ export default function CreatePost() {
             </Box>
 
             <div>
-                <Stack spacing={8} w={["90%", "80%", "70%", "800px"]} style={{ margin: "auto" }}>
+                <Stack userSelect="none" spacing={8} w={["90%", "80%", "70%", "800px"]} style={{ margin: "auto" }} id="mappedComponentList">
 
                     {/* this map function maps all the objects in the blocks and send them one by one to AddBlock.js which creates the Components */}
                     {blocks.map((block, index, array) => Components(block, index, array))}  

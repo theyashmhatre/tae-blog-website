@@ -159,7 +159,7 @@ export default function CoverImage() {
                     </div>
                 }
                 <Box marginBottom="7px" marginLeft="10px">
-                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" bgColor={closeButtonValue} size="25px" color={closeIconValue} />
+                    <RiCloseCircleFill onClick={removeBlock} cursor="pointer" aria-label="Remove Block" size="25px" color={closeIconValue} />
                 </Box>
             </div>
             <label htmlFor="upload-button">
