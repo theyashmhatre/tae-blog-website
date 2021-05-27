@@ -8,9 +8,12 @@ import {db} from "../config/config"
 import Footer from '../components/user/Layout/Footer/Footer';
 import Link from 'next/link';
 import IndexMetaTag from '../components/user/MetaTags/IndexMetaTag';
+import { useState } from 'react';
 
 
 export default function Home({blogs}) {
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <div>
@@ -44,7 +47,12 @@ export default function Home({blogs}) {
         })}
       </Stack>
       <Container centerContent={true} padding="30px 0px 10px 0px">
-        <Button  colorScheme="blue" variant="solid">
+        <Button isLoading = {loading}
+          colorScheme="blue"
+          variant="solid"
+          spinnerPlacement="start"
+          onClick={() => setLoading(true)}
+        >
           <Link href="/blogs">
             Read More...
           </Link>

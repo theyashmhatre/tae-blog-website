@@ -16,15 +16,21 @@ export default function Hero({
             justify={{ base: "center", md: "space-around", xl: "space-between" }}
             direction={{ base: "column-reverse", md: "row" }}
             wrap="no-wrap"
-            minH="70vh"
+            minH="100vh"
             px={8}
-            mb={16}
+            pb={16}
+            backgroundImage="/image2.jpg"
+            backgroundSize="cover"
+            position="relative"
+            backgroundRepeat="no-repeat"
+            bgAttachment="fixed"
+
             {...rest}
         >
             <Stack
                 spacing={4}
-                w={{ base: "80%", md: "40%" }}
-                align={["center", "center", "flex-start", "flex-start"]}
+                w={{ base: "80%", md: "100%" }}
+                align={["center", "center"]}
             >
                 <Heading
                     as="h1"
@@ -46,33 +52,30 @@ export default function Hero({
                 >
                     {subtitle}
                 </Heading>
-                <Link href="/blogs">
-                    <Button
-                        variantColor="primary"
-                        borderRadius="8px"
-                        py="4"
-                        px="4"
-                        lineHeight="1"
-                        size="md"
-                    >
-                        {ctaText}
-                    </Button>
-                </Link>
+                <Button
+                    variantColor="primary"
+                    borderRadius="8px"
+                    py="4"
+                    px="4"
+                    lineHeight="1"
+                    size="md"
+                >
+                    {ctaText}
+                </Button>
                 <Text
                     fontSize="xs"
                     mt={2}
                     textAlign="center"
-                    color="primary.800"
-                    opacity="0.6"
+                    color="whiteAlpha.700"
+                    opacity="0.4"
+                    right={2}
+                    bottom={2}
+                    position="absolute"
                 >
-                    Hassle Free Procedure
+                    Photo by <a href="https://unsplash.com/@trip_n_trek_india?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Trip & Trek India</a> on <a href="https://unsplash.com/s/photos/travelling?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
                 </Text>
             </Stack>
 
-            {/* Hero Image on the home page */}
-            <Box w={{ base: "80%", sm: "60%", md: "50%" }} mb={{ base: 12, md: 0 }}>
-                <Image src={image} size="100%" rounded="1rem" shadow="2xl" />
-            </Box>
-        </Flex>
+        </Flex >
     )
 }

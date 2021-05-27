@@ -17,9 +17,9 @@ export default function RightDrawer() {
     const {blocks,setBlocks} = useContext(BlockContext);
     const toast = useToast();  //chakra UI method
 
-    // const auth = useAuth();
+    const auth = useAuth();
 
-    // const { user, loading } = useAuth();
+    const { user, loading } = useAuth();
 
 
     function checkMediaUploadStatus() {
@@ -55,8 +55,8 @@ export default function RightDrawer() {
             blogDescription: blocks[0].blogDescription,
             coverImageUploaded : blocks[0].coverImageUploaded,
             uploadedAt : date,
-            userUID: "user.uid",
-            postedBy: "user.name",
+            userUID: user.uid,
+            postedBy: user.name,
         };
 
 
@@ -110,8 +110,8 @@ export default function RightDrawer() {
             blogDescription: blocks[0].blogDescription,
             coverImageUploaded: blocks[0].coverImageUploaded,
             uploadedAt: date,
-            userUID: "user.uid",
-            postedBy: "user.name",
+            userUID: user.uid,
+            postedBy: user.name,
         };
 
 

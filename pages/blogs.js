@@ -20,7 +20,7 @@ export default function Blogs({blogs}) {
             </Head>
             <Header />
 
-            <Stack spacing={8} w={["95%", "90%", "85%", "75%"]} style={{ margin: "auto" }}>
+            <Stack spacing={8} w={["95%", "90%", "85%", "75%"]} mt="120px" mx="auto" position="relative">
                 <Heading textAlign="center">
                     Blog Feed
                 </Heading>

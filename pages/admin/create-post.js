@@ -19,11 +19,11 @@ export default function CreatePost() {
     const {blocks, setBlocks} = useContext(BlockContext);
     const router = useRouter();
 
-    // const { user, loading } = useAuth();
+    const { user, loading } = useAuth();
 
-    // if (!loading && !user) {
-    //     router.push('/admin/login');
-    // }
+    if (!loading && !user) {
+        router.push('/admin/login');
+    }
 
     useEffect(() => {
             //it sets the localstorage as default blockList if it is empty
