@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import BlockContext from "../context/BlockContext"
 import data from "../components/admin/CreatePost/AddBlock/objects/data"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { extendTheme } from "@chakra-ui/react"
 import { Fonts } from "../public/fonts/fonts"
 import {AuthProvider} from "../lib/auth";

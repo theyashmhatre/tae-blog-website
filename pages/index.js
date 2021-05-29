@@ -16,7 +16,7 @@ export default function Home({blogs}) {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div>
+    <div style={{height:"100%"}}>
       {/* Head tag from NextJs allows to specify the page name */}
       <IndexMetaTag 
         desc = "An Engineer who likes to face new adventures and write about the experience. Trekking and Softwares are his forte, but may try something else periodically to spice things up!"

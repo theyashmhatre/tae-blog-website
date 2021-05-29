@@ -10,6 +10,7 @@ import BlogTags from '../../../../components/user/SingleBlogComponents/BlogTags'
 import AddComment from '../../../../components/user/SingleBlogComponents/AddComment';
 import Comments from '../../../../components/user/SingleBlogComponents/Comments';
 import Head from 'next/head';
+import BlogTitle from '../../../../components/user/SingleBlogComponents/BlogTitle';
 
 
 
@@ -24,8 +25,12 @@ export default function PreviewPost({ blog, id }) {
         <div>
             <Head><title>{blocks[0].value} - The Adventurous Engineer</title></Head>
             <Header />
+            <BlogTitle
+                block={blog.blocks[0]}
+                postedBy={blog.postedBy}
+            />
             <Stack spacing={8} w={["90%", "80%", "80%", "75%"]} padding="0px 10px 0px 5px" style={{ margin: "auto" }}>
-                {blocks.map(block => Components(block))}
+                {blocks.filter((block, index) => index != 0).map(block => Components(block))}
             </Stack>
             <BlogTags
                 tags={blocks[0].tags}

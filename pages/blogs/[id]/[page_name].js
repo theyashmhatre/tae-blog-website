@@ -12,6 +12,7 @@ import BlogTags from '../../../components/user/SingleBlogComponents/BlogTags';
 import AddComment from '../../../components/user/SingleBlogComponents/AddComment';
 import Comments from '../../../components/user/SingleBlogComponents/Comments';
 import firebase from "firebase/app";
+import BlogTitle from '../../../components/user/SingleBlogComponents/BlogTitle';
 
 
 
@@ -38,8 +39,12 @@ export default function SinglePost({ blog, id }) {
                 desc={blocks[0].blogDescription}
             />
             <Header />
-            <Stack spacing={8} w={["90%", "80%", "80%", "75%"]} padding="0px 10px 0px 5px" style={{ margin: "auto" }}>
-                {blocks.map(block => Components(block))}
+            <BlogTitle 
+                block = {blog.blocks[0]}
+                postedBy = {blog.postedBy}
+            />
+            <Stack spacing={8} w={["90%", "80%", "80%", "75%"]} margin="auto">
+                {blocks.filter((block,index) => index != 0).map(block => Components(block))}
             </Stack>
             <BlogTags
                 tags={blocks[0].tags}

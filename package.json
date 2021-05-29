@@ -17,12 +17,11 @@
     "firebase": "^8.6.1",
     "firebase-admin": "^9.8.0",
     "framer-motion": "^3.10.6",
-    "fs": "^0.0.1-security",
-    "gray-matter": "^4.0.3",
     "next": "^10.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
+    "react-reveal": "^1.2.2",
     "uniqid": "^5.3.0",
     "xhr2": "^0.2.1"
   }

@@ -7,15 +7,15 @@ export default function BlogTags({tags}) {
 
     return (
         <Box spacing={[6, 8]} w={["90%", "80%", "80%", "75%"]} padding="30px 10px 0px 5px" style={{ margin: "auto" }}>
-            <Text fontWeight="bold" textAlign="center" marginBottom="10px" fontSize="22px">
+            {/* <Text fontWeight="bold" textAlign="center" marginBottom="10px" fontSize="22px">
                 Tags
-           </Text>
+           </Text> */}
             <ul style={{ listStyle: "none", textAlign:"center" }}>
                 {tags ? tags.map((tag, index) => (
 
                     <li style={{ display: "inline-block", marginBottom:"10px" }} key={index}>
                         <Box style={{ marginRight: "10px", marginBottom: "200px", display: "inline" }}>
-                            <Tag size={["lg"]} key={tag} fontSize={["13px", "16px"]} variant="solid" colorScheme="teal" >
+                            <Tag size={["lg"]} key={tag} fontSize={["13px", "16px"]} variant="outline" >
                                 <TagLabel>
                                     {tag}
                                 </TagLabel>

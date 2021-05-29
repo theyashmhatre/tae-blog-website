@@ -22,13 +22,13 @@ export default function Header(props) {
     const [show, setShow] = useState(false);
     const toggleMenu = () => setShow(!show);
     const { colorMode, toggleColorMode } = useColorMode();
-    
+
     if (typeof window === 'undefined') {
         global.window = {}
     }
-    
+
     // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    
+
     // useEffect(() => {
     //     console.log("inner with change", window.innerWidth);
 
@@ -39,17 +39,18 @@ export default function Header(props) {
     //     setWindowWidth(window.innerWidth);
     // }
 
-    var prevScrollpos = window.pageYOffset;
-    console.log(prevScrollpos);
-    window.onscroll = function () {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-            document.getElementById("navbar").style.top = "0";
-        } else {
-            document.getElementById("navbar").style.top = "-102px";
-        }
-        prevScrollpos = currentScrollPos;
-    }
+    //hides navbar when scrolling down, but doesn't work with 100% height in html,body and we need the height for the text to be centred!
+    // var prevScrollpos = window.pageYOffset;
+    // window.onscroll = function () {
+    //     var currentScrollPos = window.pageYOffset;
+            // console.log(prevScrollpos, currentScrollPos);
+    //     if (prevScrollpos > currentScrollPos) {
+    //         document.getElementById("navbar").style.top = "0";
+    //     } else {
+    //         document.getElementById("navbar").style.top = "-102px";
+    //     }
+    //     prevScrollpos = currentScrollPos;
+    // }
 
     return (
         <Flex
@@ -62,7 +63,7 @@ export default function Header(props) {
             bg="gray.900"
             color="white"
             opacity="0.8"
-            position="fixed"
+            position="absolute"
             top={0}
             w="100%"
             zIndex="2"
@@ -78,8 +79,8 @@ export default function Header(props) {
             </Flex>
 
             {/* {windowWidth < 2000 || window.innerWidth < 2000 ? */}
-                <MenuDrawer />
-                {/* <Box
+            <MenuDrawer />
+            {/* <Box
                     display={{ md: "flex" }}
                     flexBasis={{ md: "auto" }}
                 >
