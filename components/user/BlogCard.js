@@ -41,7 +41,7 @@ export default function BlogCard({ blog }) {
 
             <Fade big>
                 <Link href={`/blogs/[id]/[page_name]/`} as={`/blogs/${blog.blogId}/${encodeURIComponent(blogName)}/`}>
-                    <Box maxW="3xl" backgroundColor={useColorModeValue("#F5F5F5", "blackAlpha.700")} borderWidth="1px" borderRadius="lg" margin="auto" overflow="hidden">
+                    <Box maxW="3xl" backgroundColor={useColorModeValue("#F5F5F5", "blackAlpha.700")} borderRadius="lg" margin="auto" overflow="hidden" boxShadow= "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                         <Image src={blog.blocks[0].coverImageUrl} _hover={{opacity:"0.7"}} transition="0.3s" cursor="pointer" boxSize="50vh" width="100%" objectFit="cover" alt="{property.imageAlt}" />
 
                         <Box p="6">

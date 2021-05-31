@@ -21,6 +21,9 @@ module.exports = {
         DATABASEURL: process.env.DATABASEURL,
         CLIENTEMAIL: process.env.CLIENTEMAIL,
         PRIVATEKEY: process.env.PRIVATEKEY,
+        MAILCHIMPINSTANCE: process.env.MAILCHIMPINSTANCE,
+        MAILCHIMPAPIKEY: process.env.MAILCHIMPAPIKEY,
+        UNIQUELISTID: process.env.UNIQUELISTID
     },
     images: {
         domains: ['firebasestorage.googleapis.com'],

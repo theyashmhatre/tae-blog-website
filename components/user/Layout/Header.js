@@ -40,17 +40,17 @@ export default function Header(props) {
     // }
 
     //hides navbar when scrolling down, but doesn't work with 100% height in html,body and we need the height for the text to be centred!
-    // var prevScrollpos = window.pageYOffset;
-    // window.onscroll = function () {
-    //     var currentScrollPos = window.pageYOffset;
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+        var currentScrollPos = window.pageYOffset;
             // console.log(prevScrollpos, currentScrollPos);
-    //     if (prevScrollpos > currentScrollPos) {
-    //         document.getElementById("navbar").style.top = "0";
-    //     } else {
-    //         document.getElementById("navbar").style.top = "-102px";
-    //     }
-    //     prevScrollpos = currentScrollPos;
-    // }
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+        } else {
+            document.getElementById("navbar").style.top = "-102px";
+        }
+        prevScrollpos = currentScrollPos;
+    }
 
     return (
         <Flex
@@ -63,7 +63,7 @@ export default function Header(props) {
             bg="gray.900"
             color="white"
             opacity="0.8"
-            position="absolute"
+            position="fixed"
             top={0}
             w="100%"
             zIndex="2"
