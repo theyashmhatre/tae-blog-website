@@ -3,7 +3,7 @@ import Header from '../components/user/Layout/Header';
 import Hero from "../components/user/Hero"
 import { Button, Container, Divider, Heading, Stack } from "@chakra-ui/react"
 import axios from 'axios';
-import BlogCard from '../components/user/BlogCard';
+import BlogCard from '../components/user/Layout/BlogCard/BlogCard';
 import {db} from "../config/config"
 import Footer from '../components/user/Layout/Footer/Footer';
 import Link from 'next/link';
@@ -35,13 +35,11 @@ export default function Home({blogs}) {
 
       <Divider orientation="horizontal" colorScheme="black" size="15px 15px" />
       <Stack spacing={8} w={["100%","90%","80%"]} margin="auto" paddingTop="40px">
-      <Heading as="h2" margin="auto">
-        Blogs
-      </Heading>
-        {blogs.map((blog) => {
+        {blogs.map((blog, index) => {
           return <div key={blog.blogId}>
             <BlogCard
               blog={blog}
+              index={index}
             />
           </div>
         })}

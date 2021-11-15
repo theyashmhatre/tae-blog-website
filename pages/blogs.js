@@ -3,7 +3,7 @@ import axios from 'axios'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import BlogCard from '../components/user/BlogCard'
+import BlogCard from '../components/user/Layout/BlogCard/BlogCard'
 import Footer from '../components/user/Layout/Footer/Footer'
 import Header from '../components/user/Layout/Header'
 import { db } from "../config/config";
@@ -20,15 +20,13 @@ export default function Blogs({blogs}) {
             </Head>
             <Header />
 
-            <Stack spacing={8} w={["95%", "90%", "85%", "75%"]} mt="120px" mx="auto" position="relative">
-                <Heading textAlign="center">
-                    Blog Feed
-                </Heading>
-                {blogs.map((blog) => {
+            <Stack spacing={8} w={["96%", "95%", "90%", "90%"]} mt="120px" mx="auto" position="relative">
+                {blogs.map((blog, index) => {
                     {/* let name = blog.blocks[0].value.trim().replace(/\s+/g, '-'); */ }
                     return <div key={blog.blogId}>
                         <BlogCard
                             blog={blog}
+                            index={index}
                         />
                     </div>
                 })}

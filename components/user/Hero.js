@@ -19,11 +19,12 @@ export default function Hero({
             minH="100vh"
             px={8}
             pb={16}
-            backgroundImage="/image2.jpg"
+            bgImage="/image2.jpg"
             backgroundSize="cover"
             position="relative"
             backgroundRepeat="no-repeat"
             bgAttachment="fixed"
+            backgroundColor="transparent"
         >
             <Stack
                 spacing={4}
