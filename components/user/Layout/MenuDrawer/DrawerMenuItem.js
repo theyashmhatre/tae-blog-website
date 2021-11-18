@@ -9,25 +9,25 @@ export default function DrawerMenuItem({ name, icon, link }) {
 
     return (
         <>
-            <HStack
-                backgroundColor={router.pathname === link ? "violet" : ""}
-                mb="0px"
-                paddingY="10px"
-                paddingLeft="30px"
-                cursor="pointer"
-                fontSize="25px"
-                fontWeight="normal"
-                spacing={6}
-                transition="ease 0.5s"
-                _hover={{ backgroundColor: router.pathname === link ? "violet" :"lightgray", color: "blackAlpha.800" }}
-            >
-                {icon}
-                <Text>
-                    <Link href={link}>
+            <Link href={link}>
+                <HStack
+                    backgroundColor={router.pathname === link ? "violet" : ""}
+                    mb="0px"
+                    paddingY="10px"
+                    paddingLeft="30px"
+                    cursor="pointer"
+                    fontSize="25px"
+                    fontWeight="normal"
+                    spacing={6}
+                    transition="ease 0.5s"
+                    _hover={{ backgroundColor: router.pathname === link ? "violet" : "lightgray", color: "blackAlpha.800" }}
+                >
+                    {icon}
+                    <Text>
                         {name}
-                    </Link>
-                </Text>
-            </HStack>
+                    </Text>
+                </HStack>
+            </Link>
         </>
     )
 }

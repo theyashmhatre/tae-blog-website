@@ -96,7 +96,9 @@ export default function BlogCard({ blog, index }) {
                         <Fade big>
                             <h1>{blocks[0].value}</h1>
                             <p>{blog.blocks[0].blogDescription}</p>
-                            <Button>Read more...</Button>
+                            <Link href={`/blogs/[id]/[page_name]/`} as={`/blogs/${blog.blogId}/${encodeURIComponent(blogName)}/`}>
+                                <Button>Read more...</Button>
+                            </Link>
                         </Fade>
                     </ColumnLeft>
 

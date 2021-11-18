@@ -17,6 +17,7 @@ export default function Hero({
             direction={{ base: "column-reverse", md: "row" }}
             wrap="no-wrap"
             minH="100vh"
+            pt={20}
             px={8}
             pb={16}
             bgImage="/image2.jpg"
@@ -37,6 +38,7 @@ export default function Hero({
                     fontWeight="bold"
                     color="primary.800"
                     textAlign={["center", "center", "left", "left"]}
+                    mixBlendMode="hard-light"
                 >
                     {title}
                 </Heading>
